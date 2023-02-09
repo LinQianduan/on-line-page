@@ -1,0 +1,1 @@
+import{d as e,o as _,c as o}from"./index.3a328357.js";import{_ as t}from"./_plugin-vue_export-helper.cdc0426e.js";const n={class:"navigation"},s=e({__name:"index",setup(a){return(c,d)=>(_(),o("div",n,"\u5BFC\u822A\u9875"))}});const r=t(s,[["__scopeId","data-v-43a977cb"]]);export{r as default};

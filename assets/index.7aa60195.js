@@ -1,1 +1,0 @@
-import{d as e,o as _,c as n,_ as a}from"./index.106a9419.js";const s={class:"navigation"},o=e({__name:"index",setup(t){return(c,i)=>(_(),n("div",s,"\u5BFC\u822A\u9875"))}});const p=a(o,[["__scopeId","data-v-7c683a61"],["__file","D:/Task/my-v3/on-line-page/src/views/navigation/index.vue"]]);export{p as default};

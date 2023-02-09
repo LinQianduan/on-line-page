@@ -1,1 +1,0 @@
-import{d as e,o as s,c as o,_ as n}from"./index.106a9419.js";const r=e({__name:"404",setup(_){return(a,t)=>(s(),o("div",null,"404"))}}),p=n(r,[["__file","D:/Task/my-v3/on-line-page/src/views/ErrorMessage/404.vue"]]);export{p as default};
