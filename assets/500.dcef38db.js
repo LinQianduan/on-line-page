@@ -1,0 +1,1 @@
+import{d as e,o as s,c as o,_ as n}from"./index.7eb343bb.js";const r=e({__name:"500",setup(_){return(a,t)=>(s(),o("div",null,"500"))}}),p=n(r,[["__file","D:/Task/my-v3/on-line-page/src/views/ErrorMessage/500.vue"]]);export{p as default};
