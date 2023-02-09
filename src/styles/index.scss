@@ -1,0 +1,39 @@
+@import './normalize.scss';
+@import './var.scss';
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  padding: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+#app {
+  height: 100%;
+}
+
+// 禁止选中文字
+.no-select {
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+  user-select: none;
+}
+
+@font-face {
+  font-family: "UnidreamLED";
+  src: url('@/assets/font/UnidreamLED.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Pacifico-Regular";
+  src: url('@/assets/font/Pacifico-Regular.ttf') format('truetype');
+}
