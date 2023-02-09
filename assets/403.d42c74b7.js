@@ -1,0 +1,1 @@
+import{d as e,o as s,c as o,_ as n}from"./index.106a9419.js";const r=e({__name:"403",setup(_){return(a,t)=>(s(),o("div",null,"403"))}}),p=n(r,[["__file","D:/Task/my-v3/on-line-page/src/views/ErrorMessage/403.vue"]]);export{p as default};
