@@ -28,7 +28,7 @@
 						<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
 							<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
 						</div>
-						<div class="icon-item" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
+						<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
 							<SvgIcon name="GitHub" :iconStyle="iconStyle" />
 						</div>
 						<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
@@ -202,6 +202,12 @@ const setBgImgInit = () => {
 			message: '壁纸切换成功'
 		})
 	}
+}
+
+const getToGithub = () => {  
+	const url = 'https://github.com/LinQianduan/on-line-page'
+	// window.location.href = url
+	window.open(url)
 }
 
 // 切换一言

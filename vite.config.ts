@@ -33,7 +33,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig =>{
         scss: {
           additionalData: `@import "@/styles/var.scss";`
         },
-      },
+      }
     },
     plugins: [
       vue(),

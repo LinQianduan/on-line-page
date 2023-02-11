@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue'
 import MDialog from '@/components/MDialog/index.vue'
 import { ref } from "vue";
+import styles from './index.module.scss'
 export default defineComponent({ // 传入组件配置
   components: {
     MDialog
@@ -16,9 +17,11 @@ export default defineComponent({ // 传入组件配置
     function handleClick () {
       modelValue.value = true
     }
+    console.log(styles, 20);
+    
     const render = () => {
       return <>
-        <div>开发中。。。</div>
+        <div class={styles.title}>开发中。。。</div>
         <el-button type="default" style="margin-left: 40px;" onClick={ handleClick }>点击弹窗</el-button>
         <m-dialog
           width={ width.value }
