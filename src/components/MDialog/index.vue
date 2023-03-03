@@ -11,7 +11,7 @@
 						<SvgIcon name="close" :iconStyle="{ width: '16px', height: '16px'}" />
 					</span>
 				</div>
-				<div class="d-dialog-title">title</div>
+				<div class="d-dialog-title">{{ title }}</div>
 			</div>
 
       <slot name="default"></slot>
@@ -28,6 +28,7 @@ interface Props {
 	fullScreen?: boolean;
 	showFullScreen?: boolean; // 是否显示全屏按钮
 	bgColor?: string; // 背景颜色
+	title?: string;
 }
 interface Emits {
   (e: "confirm"): void;
@@ -43,7 +44,8 @@ const props = withDefaults(defineProps<Props>(), {
 	draggable: false,
 	fullScreen: false,
 	showFullScreen: true,
-	bgColor: "#fff"
+	bgColor: "#fff",
+	title: ''
 });
 
 // 关闭弹窗
