@@ -567,7 +567,7 @@ onBeforeUnmount(() => {
 			overflow: hidden;
 			width: 450px;
 			height: 200px;
-			margin-top: 12px;
+			margin-top: 22px;
 			// background: rgb(0 0 0 / 25%);
 			// border-radius: 6px;
 		}
