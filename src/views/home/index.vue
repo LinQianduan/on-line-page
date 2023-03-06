@@ -23,6 +23,9 @@
 						<span>一个建立于 21 世纪的小站，存活于互联网的边缘</span>
 					</div>
 				</div>
+				<div class="left-photo">
+					<Accordion />
+				</div>
 				<div class="left-bottom">
 					<div class="icon-list">
 						<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
@@ -76,7 +79,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="line">
+				<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
 					我的音乐
 				</div>
 				<div class="music-all">
@@ -126,6 +129,7 @@ import 'aplayer/dist/APlayer.min.css';
 import FlipClock from '@/components/FlipClock/index.vue'
 import SearchReg from '@/components/SearchReg.vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
+import Accordion from './Accordion.vue'
 import background5 from '@/assets/image/background5.webp'
 import APlayer from 'aplayer';
 import { ref, reactive, unref, nextTick, watch, onBeforeUnmount } from "vue";
@@ -557,6 +561,15 @@ onBeforeUnmount(() => {
 				font-weight: 700;
 				font-size: 16px;
 			}
+		}
+		.left-photo {
+			box-sizing: border-box;
+			overflow: hidden;
+			width: 450px;
+			height: 200px;
+			margin-top: 12px;
+			// background: rgb(0 0 0 / 25%);
+			// border-radius: 6px;
 		}
 	}
 	.con-right {

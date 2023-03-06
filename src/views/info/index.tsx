@@ -7,6 +7,7 @@ export default defineComponent({ // 传入组件配置
   components: {
     MDialog
   },
+  
   setup () {
     const width = ref<string>('1200px')
     let modelValue = ref<boolean>(false)
@@ -17,11 +18,13 @@ export default defineComponent({ // 传入组件配置
     function handleClick () {
       modelValue.value = true
     }
-    console.log(styles, 20);
-    
+    const sidebarStyle = {
+      borderRight: '1px solid #ddd',
+      background: '#f5f5f5'
+    };
     const render = () => {
       return <>
-        <div class={styles.title}>开发中。。。</div>
+        <div class={sidebarStyle} style={sidebarStyle}>开发中。。。</div>
         <el-button type="default" style="margin-left: 40px;" onClick={ handleClick }>点击弹窗</el-button>
         <m-dialog
           width={ width.value }
