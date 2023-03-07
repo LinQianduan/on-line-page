@@ -8,10 +8,10 @@
 			@mouseenter="handleEenter(item.id)"
 		>
       <div class="hide">
-				<div class="icon-btn" @click.stop="handleMoreClick(item.id)">
+				<div class="icon-btn" @click="handleMoreClick(item.id)">
 					<SvgIcon name="more3" :iconStyle="{ width: '16px', height: '16px' }" />
 				</div>
-      	<el-image class="img" :src="item.src" fit="cover" />
+      	<el-image @click="initialIndex = item.id - 1" :preview-src-list.stop="phtotOptions.map(item => item.src)" :initial-index="initialIndex" class="img" :src="item.src" fit="cover" />
       </div>
     </div>
 	</div>
@@ -48,6 +48,7 @@ const phtotOptions = ref<Array<PhtotOptions>>([
 	{ describe: '文字描述', src: image4, id: 4 },
 	{ describe: '文字描述', src: image5, id: 5 },
 ])
+const initialIndex = ref<number>(0)
 
 const activeId = ref<Number>(1)
 const handleEenter = (type: number) => {
@@ -94,7 +95,6 @@ const handleClose = (done: () => void) => {
 				cursor: pointer;
 			}
 			.img {
-				z-index: -1;
 				width: 100%;
 				height: 100%;
 			}
