@@ -132,6 +132,7 @@ import { getWeather, getMusicList, getHitokoto, getRandomCat } from '@/api/index
 import { ElMessage } from 'element-plus'
 import musicList  from '@/assets/json/musicList.json'
 import { useRouter } from "vue-router";
+import { GlobalStore } from "@/stores";
 const router = useRouter()
 
 const iconStyle = ref<any>({
@@ -163,7 +164,7 @@ const iconMouseout = () => {
 	iconDescription.value = ''
 }
 // 修改背景图片
-
+const globalStore = GlobalStore();
 let bgImage = ref<string>(background5)
 // @/assets/image/background5.webp
 let bg_img_preinstall = {
@@ -190,6 +191,7 @@ const setBgImgInit = () => {
 			bgImage.value = bg_img_preinstall[4]
 			break;
 	}
+	globalStore.setGgImage(bgImage.value)
 	// 判断图片是否加载完毕
 	const dom = document.querySelector("#bg") as HTMLElement
 	dom.onload = function () {
@@ -324,13 +326,18 @@ nextTick(() => {
 	});
 	ap.value.on('noticeshow', function () {
 			// ap.value.notice('音频发生错误, 将在2秒内跳过。', 2000, 0.8);
-			(document.querySelector('.aplayer-notice') as HTMLElement).innerHTML = '音频发生错误, 将在2秒内跳过。'
+			const dom = document.querySelector('.aplayer-notice')
+			if(dom) {
+				dom.innerHTML = '音频发生错误, 将在2秒内跳过。'
+			}
 	});
 	// 底部歌词
 	time.value = setInterval(() => {
 		const lrcDom = document.getElementById('lrc') as HTMLElement
 		const currentDom = document.querySelector(".aplayer-lrc-current") as HTMLElement
-		footerLrc.value = currentDom.innerText
+		if(currentDom) {
+			footerLrc.value = currentDom.innerText
+		}
 	}, 500)
 })
 

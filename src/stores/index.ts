@@ -6,10 +6,15 @@ export const GlobalStore = defineStore({
 	id: "GlobalState",
 	// state: 返回对象的函数
 	state: () => ({
-		count: 66
+		bgImage: ''
 	}),
-	getters: {},
+	getters: {
+
+	},
 	actions: {
+		setGgImage(url: any) {
+			this.bgImage = url
+		}
 	}
 });
 

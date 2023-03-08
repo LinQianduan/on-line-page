@@ -2,7 +2,7 @@
 	<div class="app-wrapper">
 		<!-- 背景图片 -->
 		<div class="bg-all">
-      <img id="bg" :src="background5" />
+      <img id="bg" :src="store.bgImage || background5" />
       <div class="cover"></div>
     </div>
     <div class="bg-col">
@@ -20,6 +20,8 @@ import AppMain from './AppMain.vue'
 import Sidebar from './Sidebar.vue'
 import { ref, reactive } from 'vue'
 import background5 from '@/assets/image/background5.webp'
+import { GlobalStore } from '@/stores'
+const store = GlobalStore()
 </script>
 <style scoped lang='scss'>
 .app-wrapper {
