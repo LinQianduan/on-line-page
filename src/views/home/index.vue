@@ -1,95 +1,101 @@
 <template>
   <div class="home-box">
     <!-- 背景图片 -->
-    <div class="bg-all">
+    <!-- <div class="bg-all">
       <img id="bg" :src="bgImage" />
       <div class="cover"></div>
     </div>
 		<div class="bg-col">
 			<div class="col-left"></div>
 			<div class="col-right"></div>
+		</div> -->
+		<div class="main">
+			<!-- <router-link to="/">Home</router-link> | 
+			<router-link to="/login">ExampleA</router-link> | 
+			<router-link to="/info">HelloWorld</router-link> -->
+			<div class="container">
+				<div class="con-left">
+					<div class="left-top">
+						<img class="photo-img" src="@/assets/image/logo.png" alt="">
+						<div class="name">
+							<span class="img-title-big">always online</span>
+						</div>
+					</div>
+					<div class="left-center cards">
+						<div class="des-title">
+							<span>Hello&nbsp;World&nbsp;!</span><br />
+							<span>一个建立于 21 世纪的小站，存活于互联网的边缘</span>
+						</div>
+					</div>
+					<div class="left-photo">
+						<Accordion />
+					</div>
+					<div class="left-bottom">
+						<div class="icon-list">
+							<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
+								<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
+							</div>
+							<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
+								<SvgIcon name="GitHub" :iconStyle="iconStyle" />
+							</div>
+							<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
+								<SvgIcon name="information" :iconStyle="{...iconStyle, width: '38px', height: '38px'}" />
+							</div>
+							<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
+								<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
+							</div>
+						</div>
+						<div class="description">
+							{{ iconDescription }}
+						</div>
+					</div>
+				</div>
+				<div class="con-right">
+					<div class="module">
+						<div class="cards hitokoto" :style="{ backgroundColor: isLoading ? 'rgb(0 0 0 / 50%)' : 'rgb(0 0 0 / 25%)' }">
+							<div class="tootip">点击切换一言</div>
+							<div class="hitokoto-all" @click="switchHitokotoFn">
+								<div class="hitokoto-text"><span id="hitokoto_text">{{ hitokoto.hitokoto }}</span>
+								</div>
+								<div class="hitokoto-from">-「&nbsp;<span id="from_text">{{ hitokoto.from }}</span>&nbsp;」
+								</div>
+							</div>
+						</div>
+						<div class="cards time" v-loading="timeLoading" element-loading-background="rgba(0, 0, 0, 0.25)">
+							<div class="top">
+								{{ date.substring(0, 4) }}&nbsp;年&nbsp;{{
+									date.substring(4, 6)
+								}}&nbsp;月&nbsp;{{ date.substring(6, 8) }}&nbsp;日&nbsp;
+								<span>{{ week }}</span>
+							</div>
+							<div class="draw">
+								<FlipClock></FlipClock>
+							</div>
+							<div class="weather">
+								<a  href="javascript:void(0)" @click="openSearchReg">{{ region }}</a>
+								&nbsp;&nbsp;
+								&nbsp;
+								<span>{{ weather.temp || '--' }}°C</span>
+								&nbsp;&nbsp;
+								<span>{{ weather.text || '--' }}</span>
+								&nbsp;&nbsp;
+								<span>{{ weather.windDir || '--' }}</span>
+							</div>
+						</div>
+					</div>
+					<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
+						我的音乐
+					</div>
+					<div class="music-all">
+						<div class="player-box" id="player">
+						</div>
+					</div>
+				</div>
+				
+				<SearchReg @check-reg="checkReg" ref="searchReg"></SearchReg>
+			</div>
 		</div>
-    <div class="container">
-			<div class="con-left">
-				<div class="left-top">
-					<img class="photo-img" src="@/assets/image/logo.png" alt="">
-					<div class="name">
-						<span class="img-title-big">always online</span>
-					</div>
-				</div>
-				<div class="left-center cards">
-					<div class="des-title">
-						<span>Hello&nbsp;World&nbsp;!</span><br />
-						<span>一个建立于 21 世纪的小站，存活于互联网的边缘</span>
-					</div>
-				</div>
-				<div class="left-photo">
-					<Accordion />
-				</div>
-				<div class="left-bottom">
-					<div class="icon-list">
-						<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
-							<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
-						</div>
-						<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
-							<SvgIcon name="GitHub" :iconStyle="iconStyle" />
-						</div>
-						<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
-							<SvgIcon name="information" :iconStyle="{...iconStyle, width: '38px', height: '38px'}" />
-						</div>
-						<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
-							<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
-						</div>
-					</div>
-					<div class="description">
-						{{ iconDescription }}
-					</div>
-				</div>
-			</div>
-			<div class="con-right">
-				<div class="module">
-					<div class="cards hitokoto" :style="{ backgroundColor: isLoading ? 'rgb(0 0 0 / 50%)' : 'rgb(0 0 0 / 25%)' }">
-						<div class="tootip">点击切换一言</div>
-						<div class="hitokoto-all" @click="switchHitokotoFn">
-              <div class="hitokoto-text"><span id="hitokoto_text">{{ hitokoto.hitokoto }}</span>
-              </div>
-              <div class="hitokoto-from">-「&nbsp;<span id="from_text">{{ hitokoto.from }}</span>&nbsp;」
-              </div>
-            </div>
-					</div>
-					<div class="cards time" v-loading="timeLoading" element-loading-background="rgba(0, 0, 0, 0.25)">
-						<div class="top">
-							{{ date.substring(0, 4) }}&nbsp;年&nbsp;{{
-								date.substring(4, 6)
-							}}&nbsp;月&nbsp;{{ date.substring(6, 8) }}&nbsp;日&nbsp;
-							<span>{{ week }}</span>
-						</div>
-						<div class="draw">
-							<FlipClock></FlipClock>
-						</div>
-						<div class="weather">
-							<a  href="javascript:void(0)" @click="openSearchReg">{{ region }}</a>
-							&nbsp;&nbsp;
-							&nbsp;
-							<span>{{ weather.temp || '--' }}°C</span>
-							&nbsp;&nbsp;
-							<span>{{ weather.text || '--' }}</span>
-							&nbsp;&nbsp;
-							<span>{{ weather.windDir || '--' }}</span>
-						</div>
-					</div>
-				</div>
-				<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
-					我的音乐
-				</div>
-				<div class="music-all">
-					<div class="player-box" id="player">
-					</div>
-				</div>
-			</div>
-      
-			<SearchReg @check-reg="checkReg" ref="searchReg"></SearchReg>
-    </div>
+		
 		<div class="footer">
 			<div id="lrc">
 				<span class="lrc-show">
@@ -354,361 +360,262 @@ onBeforeUnmount(() => {
 .home-box {
 	box-sizing: border-box;
 	position: relative;
-	min-height: 600px;
+	// min-height: 600px;
   width: 100%;
-  height: 100%;
+	min-height: 100%;
 	overflow: hidden;
-  /*背景*/
-  .bg-all {
-    z-index: -1;
-    position: absolute;
-    top: calc(0px + 0px);
-    left: 0;
-    width: 100%;
-    height: calc(100% - 0px);
-    transition: 0.25s;
-    #bg {
-      transform: scale(1.1);
-      animation: filterDim 1s ease-in-out both;
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 1s, transform 0.25s, filter 0.25s;
-      backface-visibility: hidden;
-    }
-    @keyframes filterDim {
-      0% {
-        filter: blur(10px);
-      }
-      100% {
-        filter: blur(0px);
-      }
-    }
-
-    img.error {
-      display: none;
-    }
-    .cover {
-      opacity: 1;
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-image: radial-gradient(
-          rgba(0, 0, 0, 0) 0,
-          rgba(0, 0, 0, 0.5) 100%
-        ),
-        radial-gradient(rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 0.3) 166%);
-      transition: all 1.5s ease 0s;
-    }
-  }
-	.bg-col {
-		position: absolute;
-		width: 100vw;
-		height: 100vh;
-		.col-left {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 50%;
-			height: 100%;
-			background-color: #4b4b4b;
-			z-index: 999;
-			opacity: 0.9;
-			animation: leftMove 1s ease-in-out both;
-		}
-		.col-right {
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 50%;
-			z-index: 999;
-			height: 100%;
-			background-color: #4b4b4b;
-			opacity: 0.9;
-			animation: rightMove 1s ease-in-out both;
-		}
-		@keyframes leftMove {
-      0% {
-        left: 0;
-      }
-			30% {
-        left: 0;
-      }
-      100% {
-        left: -100%;
-				display: none;
-      }
-    }
-		@keyframes rightMove {
-      0% {
-        right: 0;
-      }
-			30% {
-        right: 0;
-      }
-      100% {
-        right: -100%;
-				display: none;
-      }
-    }
-	}
 }
-.home-box .container {
-	position:absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	margin-bottom: 50px;
-	overflow: hidden;
-  width: 1300px;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-	.con-left {
-		width: 100%;
-		height: 100%;
+
+.home-box .main {
+	width: 1300px;
+	height: 100%;
+	margin: 0 auto;
+	margin-bottom: 80px;
+	.container {
+		width: 1300px;
 		display: flex;
-		align-items: flex-start;
-		justify-content: center;
-		flex-direction: column;
-		.left-top {
+		margin-top: 100px;
+		justify-content: space-around;
+		align-items: center;
+		.con-left {
 			width: 100%;
-			height: 120px;
+			height: 100%;
 			display: flex;
-			.photo-img {
-				border-radius: 60px;
-				width: 120px;
+			align-items: flex-start;
+			justify-content: center;
+			flex-direction: column;
+			.left-top {
+				width: 100%;
 				height: 120px;
-				transition: 0.3s;
-				&:hover {
-					transform: rotate(180deg);
-				}
-			}
-			.name {
-				width: 100%;
-				height: 100%;
-				margin-left: 10px;
-				.img-title-big {
-					color: #fff;
-					font-size: 54px;
-					line-height: 160px;
-					font-family: 'Pacifico-Regular' !important;
-				}
-			}
-		}
-		.left-center {
-			width: 450px;
-			height: 130px;
-			margin-top: 44px;
-			background: rgb(0 0 0 / 25%);
-			padding: 20px 20px;
-			border-radius: 6px;
-			.des-title {
-				width: 100%;
-				height: 100%;
-				color: #fff;
 				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				&>:nth-child(1) {
-					align-self: flex-start;
-					font-family: 'Pacifico-Regular' !important;
+				.photo-img {
+					border-radius: 60px;
+					width: 120px;
+					height: 120px;
+					transition: 0.3s;
+					&:hover {
+						transform: rotate(180deg);
+					}
 				}
-				&>:nth-child(3) {
-					align-self: flex-end;
-				}
-			}
-		}
-		.left-bottom {
-			box-sizing: border-box;
-			width: 450px;
-			height: 50px;
-			margin-top: 12px;
-			padding: 0 6px;
-			display: flex;
-			flex-wrap: nowrap;
-    	justify-content: space-between;
-			&:hover {
-				background: rgb(0 0 0 / 25%);
-				border-radius: 6px;
-			}
-			.icon-list {
-				display: flex;
-				flex-direction: row;
-				flex-wrap: nowrap;
-				.icon-item {
-					width: 50px;
+				.name {
+					width: 100%;
 					height: 100%;
-					cursor: pointer;
+					margin-left: 10px;
+					.img-title-big {
+						color: #fff;
+						font-size: 54px;
+						line-height: 160px;
+						font-family: 'Pacifico-Regular' !important;
+					}
+				}
+			}
+			.left-center {
+				width: 450px;
+				height: 130px;
+				margin-top: 44px;
+				background: rgb(0 0 0 / 25%);
+				padding: 20px 20px;
+				border-radius: 6px;
+				.des-title {
+					width: 100%;
+					height: 100%;
+					color: #fff;
 					display: flex;
+					flex-direction: column;
 					align-items: center;
 					justify-content: center;
+					&>:nth-child(1) {
+						align-self: flex-start;
+						font-family: 'Pacifico-Regular' !important;
+					}
+					&>:nth-child(3) {
+						align-self: flex-end;
+					}
 				}
 			}
-			.description {
-				color: #fff;
-				text-align: right;
-				line-height: 50px;
-				font-weight: 700;
-				font-size: 16px;
+			.left-bottom {
+				box-sizing: border-box;
+				width: 450px;
+				height: 50px;
+				margin-top: 12px;
+				padding: 0 6px;
+				display: flex;
+				flex-wrap: nowrap;
+				justify-content: space-between;
+				&:hover {
+					background: rgb(0 0 0 / 25%);
+					border-radius: 6px;
+				}
+				.icon-list {
+					display: flex;
+					flex-direction: row;
+					flex-wrap: nowrap;
+					.icon-item {
+						width: 50px;
+						height: 100%;
+						cursor: pointer;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+				}
+				.description {
+					color: #fff;
+					text-align: right;
+					line-height: 50px;
+					font-weight: 700;
+					font-size: 16px;
+				}
+			}
+			.left-photo {
+				box-sizing: border-box;
+				overflow: hidden;
+				width: 450px;
+				height: 160px;
+				margin-top: 22px;
+				// background: rgb(0 0 0 / 25%);
+				// border-radius: 6px;
 			}
 		}
-		.left-photo {
-			box-sizing: border-box;
-			overflow: hidden;
-			width: 450px;
-			height: 200px;
-			margin-top: 22px;
-			// background: rgb(0 0 0 / 25%);
-			// border-radius: 6px;
-		}
-	}
-	.con-right {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		.module {
+		.con-right {
 			width: 100%;
-			// height: 200px;
+			height: 100%;
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: center;
+			flex-direction: column;
+			.module {
+				width: 100%;
+				// height: 200px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.line {
+				width: 100%;
+				height: 30px;
+				margin: 0px 6px;
+				font-size: 20px;
+				margin-top: 12px;
+				color: #fff;
+				font-weight: 700;
+			}
+			.music-all {
+				box-sizing: border-box;
+				backdrop-filter: blur(10px);
+				width: 100%;
+				height: 300px;
+				background: rgb(0 0 0 / 25%);
+				padding: 20px;
+				border-radius: 6px;
+				.player-box {
+					width: 100%;
+					height: 100%;
+					margin: 0 !important;
+				}
+				// :deep(.aplayer-list) {
+				// 	overflow-y: scroll;
+				// }
+			}
 		}
-		.line {
-			width: 100%;
-			height: 30px;
-			margin: 0px 6px;
-			font-size: 20px;
-			margin-top: 12px;
-			color: #fff;
-			font-weight: 700;
-		}
-		.music-all {
-			box-sizing: border-box;
-			backdrop-filter: blur(10px);
-			width: 100%;
-			height: 300px;
+		.hitokoto {
+			width: 310px;
+			height: 150px;
 			background: rgb(0 0 0 / 25%);
 			padding: 20px;
 			border-radius: 6px;
-			.player-box {
+			position: relative;
+			
+			&:hover {
+				&>.tootip {
+					display: block;
+				}
+			}
+			.tootip {
+				position: absolute;
+				left: 0;
+				top: 0;
+				color: #fff;
+				font-weight: 700;
+				text-align: center;
+				line-height: 30px;
+				font-size: 14px;
+				border-top-left-radius: 6px;
+				border-top-right-radius: 6px;
+				width: 100%;
+				height: 30px;
+				background-color: rgb(0 0 0 / 50%);
+				display: none;
+			}
+			.hitokoto-all {
 				width: 100%;
 				height: 100%;
-				margin: 0 !important;
+				box-sizing: border-box;
+				padding: 12px 0;
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				.hitokoto-text {
+					color: #fff;
+					font-size: 18px;
+				}
+				#hitokoto_text {
+					word-break: break-all;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+				}
+				.hitokoto-from {
+					color: #fff;
+					font-weight: bold;
+					align-self: flex-end;
+					font-size: 18px;
+				}
 			}
-			// :deep(.aplayer-list) {
-			// 	overflow-y: scroll;
-			// }
 		}
-	}
-	.hitokoto {
-    width: 310px;
-    height: 150px;
-    background: rgb(0 0 0 / 25%);
-    padding: 20px;
-    border-radius: 6px;
-		position: relative;
-		
-		&:hover {
-			&>.tootip {
-				display: block;
-			}
-		}
-		.tootip {
-			position: absolute;
-			left: 0;
-			top: 0;
-			color: #fff;
-			font-weight: 700;
-			text-align: center;
-			line-height: 30px;
-			font-size: 14px;
-			border-top-left-radius: 6px;
-    	border-top-right-radius: 6px;
-			width: 100%;
-			height: 30px;
-			background-color: rgb(0 0 0 / 50%);
-			display: none;
-		}
-		.hitokoto-all {
-			width: 100%;
-			height: 100%;
-			box-sizing: border-box;
-			padding: 12px 0;
-			cursor: pointer;
+		.time {
+			width: 310px;
+			height: 150px;
+			background: rgb(0 0 0 / 25%);
+			padding: 10px 20px;
+			border-radius: 6px;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-around;
-			.hitokoto-text {
+			flex-wrap: nowrap;
+			.top {
+				width: 100%;
+				height: 35px;
+				box-sizing: border-box;
+				padding-top: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				color: #fff;
-				font-size: 18px;
+				font-size: 16px;
 			}
-			#hitokoto_text {
-				word-break: break-all;
-				text-overflow: ellipsis;
-				overflow: hidden;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
+			.draw {
+				flex: none;
+				height: 50%;
 			}
-			.hitokoto-from {
+			.weather {
+				flex: auto;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				color: #fff;
-				font-weight: bold;
-				align-self: flex-end;
-				font-size: 18px;
+				font-size: 16px;
+				a {
+					color: #fff;
+				}
 			}
 		}
 	}
-  .time {
-    width: 310px;
-    height: 150px;
-    background: rgb(0 0 0 / 25%);
-    padding: 10px 20px;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    .top {
-			width: 100%;
-			height: 35px;
-			box-sizing: border-box;
-			padding-top: 4px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: #fff;
-			font-size: 16px;
-    }
-    .draw {
-      flex: none;
-      height: 50%;
-    }
-    .weather {
-    	flex: auto;
-			width: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: #fff;
-			font-size: 16px;
-			a {
-				color: #fff;
-			}
-    }
-  }
 }
+
 .home-box .footer {
 	position: fixed;
   right: 0;
@@ -849,6 +756,7 @@ span.aplayer-list-index {
     background: transparent !important;
 }
 html {
-	overflow: overlay;
+	/* overflow: overlay; */
+	/* overflow-x: hidden; */
 }
 </style>

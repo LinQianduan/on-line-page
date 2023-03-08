@@ -8,7 +8,7 @@
 			@mouseenter="handleEenter(item.id)"
 		>
       <div class="hide">
-				<div class="icon-btn" @click="handleMoreClick(item.id)">
+				<div class="icon-btn" @click.stop="handleMoreClick(item.id)">
 					<SvgIcon name="more3" :iconStyle="{ width: '16px', height: '16px' }" />
 				</div>
       	<el-image @click="initialIndex = item.id - 1" :preview-src-list.stop="phtotOptions.map(item => item.src)" :initial-index="initialIndex" class="img" :src="item.src" fit="cover" />
@@ -97,6 +97,7 @@ const handleClose = (done: () => void) => {
 			.img {
 				width: 100%;
 				height: 100%;
+				object-position: left 50%;
 			}
 		}
 		&:first-child {

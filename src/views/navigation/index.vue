@@ -3,6 +3,7 @@
 </template>
 <script setup lang='ts'>
 import { ref, reactive } from 'vue'
+console.log('setup')
 </script>
 <style scoped lang='scss'>
 .navigation {

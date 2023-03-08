@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
+import Layout from '@/Layout/index.vue'
 
 /**
  * staticRouter(静态路由)
@@ -8,37 +9,44 @@ export const staticRouter: RouteRecordRaw[] = [
 		path: "/",
 		redirect: '/home/index'
 	},
+	// {
+	// 	path: '/home/index',
+	// 	name: "Home",
+	// 	component: () => import("@/views/home/index.vue"),
+	// 	meta: {
+	// 		title: "首页"
+	// 	}
+	// },
 	{
-		path: '/home/index',
-		name: "Home",
-		component: () => import("@/views/home/index.vue"),
-		meta: {
-			title: "首页"
-		}
-	},
-	{
-		path: '/login',
-		name: "Login",
-		component: () => import("@/views/login/index.vue"),
-		meta: {
-			title: "登录"
-		}
-	},
-	{
-		path: '/info',
-		name: "Info",
-		component: () => import("@/views/info/index"),
-		meta: {
-			title: "信息"
-		}
-	},
-	{
-		path: '/navigation',
-		name: "Navigation",
-		component: () => import("@/views/navigation/index.vue"),
-		meta: {
-			title: "网页导航"
-		}
+		path: '/home',
+		component: Layout,
+		redirect: '/home/index',
+		children: [
+			{
+				path: '/home/index',
+				name: 'Home',
+				component: () => import("@/views/home/index.vue"),
+				meta: {
+					title: "首页"
+				},
+			},
+			{
+				path: '/home/info',
+				name: 'Info',
+				component: () => import("@/views/info/index"),
+				meta: {
+					title: "信息"
+				},
+			},
+			{
+				path: '/home/navigation',
+				name: 'Navigation',
+				component: () => import("@/views/navigation/index.vue"),
+				meta: {
+					title: "网页导航"
+				},
+			}
+		]
 	}
 ];
 
