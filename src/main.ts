@@ -11,9 +11,11 @@ import '@/styles/index.scss'
 import pinia from "@/stores/index";
 
 import router from '@/routers/index'
+// vue i18n
+import I18n from "@/languages/index";
 
 const app = createApp(App);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-app.use(pinia).use(ElementPlus).use(router).mount('#app');
+app.use(router).use(I18n).use(pinia).use(ElementPlus).mount('#app');

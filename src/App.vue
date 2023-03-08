@@ -27,7 +27,8 @@ const route = useRoute();
 
 <style scoped lang="scss">
 .app {
-  background: rgb(0 0 0 / 25%);
+  // background: rgb(0 0 0 / 25%);
+  background: linear-gradient(130deg, rgb(36, 198, 220), rgb(84, 51, 255) 41.07%, rgb(255, 0, 153) 76.05%);
   box-sizing: border-box;
 	position: relative;
   width: 100%;
