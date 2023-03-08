@@ -7,16 +7,8 @@ import Layout from '@/Layout/index.vue'
 export const staticRouter: RouteRecordRaw[] = [
 	{
 		path: "/",
-		redirect: '/home/index'
+		redirect: '/home'
 	},
-	// {
-	// 	path: '/home/index',
-	// 	name: "Home",
-	// 	component: () => import("@/views/home/index.vue"),
-	// 	meta: {
-	// 		title: "首页"
-	// 	}
-	// },
 	{
 		path: '/home',
 		component: Layout,
@@ -47,6 +39,11 @@ export const staticRouter: RouteRecordRaw[] = [
 				},
 			}
 		]
+	},
+	{
+		path: '/login',
+		component: () => import("@/views/login/index.vue"),
+		meta: { title: '登录' }
 	}
 ];
 

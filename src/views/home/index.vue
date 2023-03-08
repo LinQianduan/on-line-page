@@ -1,18 +1,6 @@
 <template>
   <div class="home-box">
-    <!-- 背景图片 -->
-    <!-- <div class="bg-all">
-      <img id="bg" :src="bgImage" />
-      <div class="cover"></div>
-    </div>
-		<div class="bg-col">
-			<div class="col-left"></div>
-			<div class="col-right"></div>
-		</div> -->
 		<div class="main">
-			<!-- <router-link to="/">Home</router-link> | 
-			<router-link to="/login">ExampleA</router-link> | 
-			<router-link to="/info">HelloWorld</router-link> -->
 			<div class="container">
 				<div class="con-left">
 					<div class="left-top">
