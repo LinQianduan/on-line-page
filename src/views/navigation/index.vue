@@ -1,9 +1,17 @@
 <template>
-	<div class="navigation">导航页</div>
+	<div class="navigation">
+		<el-button size="default" @click="handleClick">打开</el-button>
+		<DialogUserSelect ref="dialogUserSelectRef"></DialogUserSelect>
+	</div>
 </template>
 <script setup lang='ts'>
 import { ref, reactive } from 'vue'
-console.log('setup')
+import DialogUserSelect from './DialogUserSelect.vue'
+let dialogUserSelectRef = ref()
+const handleClick = () => {
+	// console.log(listPublishingRef.value.open)
+	dialogUserSelectRef.value.open('add')
+}
 </script>
 <style scoped lang='scss'>
 .navigation {
