@@ -9,7 +9,6 @@
 </template>
 <script setup lang='ts'>
 import { ref, reactive } from 'vue'
-import DialogUserSelect from './DialogUserSelect.vue'
 import ListPublishing from './ListPublishing.vue'
 let dialogUserSelectRef = ref()
 const handleClick = () => {
