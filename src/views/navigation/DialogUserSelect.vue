@@ -5,18 +5,27 @@
 			<el-tab-pane label="organization" name="organization">
 				<div class="container-body">
 					<div class="left">
-						<el-tree :data="treeData" @node-click="handleNodeClick" highlight-current default-expand-all :props="defaultProps" />
+						<el-tree 
+							:data="treeData" 
+							:props="defaultProps" 
+							highlight-current 
+							default-expand-all
+							:expand-on-click-node="false"
+							@node-click="handleNodeClick" 
+						/>
 					</div>
 					<div class="right">
-						<div class="user-item" v-for="item in userList">
-							<div class="lf">
-								<span class="first">{{ item.name.substring(0, 1) }}</span>
-								<span>{{ item.name }}</span>
+						<div class="user-item" v-for="(item, index) in userList" :key="item.id">
+							<label>
+								<div class="lf">
+									<span class="first">{{ item.name.substring(0, 1) }}</span>
+									<span>{{ item.name }}</span>
+								</div>
+								<div class="rg">
+									<el-checkbox @click.stop @change="$event => handleChange($event, item)" v-model="item.isChecked" size="large" />
+								</div>
+							</label>
 							</div>
-							<div class="rg">
-								<el-checkbox @change="$event => handleChange($event, item)" v-model="item.isChecked" size="large" />
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="select-all">
@@ -41,10 +50,13 @@
 </template>
 
 <script>
+import { Close } from '@element-plus/icons-vue'
 export default {
 	emits: ['success', 'closed'],
+	components: { Close },
 	data () {
 		const objectName = {
+			1: [{ id: 12, name: '张三' }, { id: 13, name: '李四' }, { id: 14, name: '王五' }],
 			2: [{ id: 1, name: '刘斌' }, { id: 2, name: '齐军' }, { id: 3, name: '刘伟' }, { id: 4, name: '袁国顺' }, { id: 5, name: '程鹏' }, { id: 6, name: '冯俊' }, { id: 7, name: '邓丽娟' }],
 			3: [{ id: 8, name: '郑俊' }, { id: 9, name: '王希尔' }],
 			4: [],
@@ -96,7 +108,8 @@ export default {
 			],
 			objectName, // 模拟的用户数据
 			userList: [], // 右侧用户列表
-			selectUserList: [] // 选中的所有用户列表
+			preSelectUserList: [], // 之前已选中的用户列表
+			selectUserList: [{ id: 2, name: '齐军' }] // 选中的所有用户列表
 		}
 	},
 	watch: {
@@ -111,18 +124,21 @@ export default {
 	},
 	methods: {
 		//显示
-		open(mode = 'add', area) {
-			this.mode = mode;
+		open(mode = 'add', area, preSelectUserList) {
 			this.visible = true;
-			this.area = area
+			this.mode = mode;
+			this.area = area;
+			this.$nextTick(() => {
+				this.selectUserList = preSelectUserList
+			})
 			return this
 		},
 		// tree点击
 		handleNodeClick(node) {
-			this.userList = this.objectName[node.id]?.map((item, index) => {
+			this.userList = this.objectName[node.id]?.map((item) => {
 				const inx = this.selectUserList.findIndex(v => v.id == item.id)
 				return {
-					isChecked: inx != -1 ? true : false, 
+					isChecked: inx != -1 ? true : false,
 					...item
 				}
 			}) || []
@@ -139,11 +155,11 @@ export default {
 					this.selectUserList.splice(inx, 1)
 				}
 			}
-
 		},
 		// 确定
 		saveConfirm() {
-			this.$emit('success', this.selectUserList, this.mode)
+			this.$emit('success', this.selectUserList, this.area)
+			this.visible = false
 		},
 		// 点击删除当前用户
 		handleTagClose(id) {
@@ -191,9 +207,18 @@ export default {
 			.user-item {
 				width: 100%;
 				height: 34px;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
+				padding: 0 10px;
+				&:hover {
+					background-color:  #d9ecff;
+				}
+				label {
+					width: 100%;
+					height: 100%;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
 				.lf {
 					span {
 						font-size: 14px;
@@ -212,6 +237,7 @@ export default {
 					}
 				}
 				.rg {
+					margin-right: 10px;
 					:deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
 						background-color: #fb6e10;
     				border-color: #fb6e10;
