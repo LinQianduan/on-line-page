@@ -72,11 +72,10 @@
 import DialogUserSelect from './DialogUserSelect.vue'
 import { Plus, Close } from '@element-plus/icons-vue'
 export default {
-    components: { DialogUserSelect, Plus, Close },
+  components: { DialogUserSelect, Plus, Close },
 	data () {
 		return {
 			rangeUserList: [],
-			switchValue1: false,
 			// 下面四条用户选择的数据
 			perSettingList: [
 				{
@@ -149,12 +148,16 @@ export default {
 .list-publishing {
 	width: 100%;
 	height: 100%;
+	padding: 20px;
+	box-sizing:border-box;
 	.range {
 		width: 100%;
+		box-sizing: border-box;
 		border: 1px solid #DCDFE6;
 		border-radius: 6px;
 		padding: 15px;
 		.container {
+			box-sizing:border-box;
 			width: 100%;
 			h2 {
 				margin-bottom: 12px;
@@ -167,6 +170,7 @@ export default {
 	.setting {
 		width: 100%;
 		margin-top: 20px;
+		box-sizing:border-box;
 		border: 1px solid #DCDFE6;
 		border-radius: 6px;
 		padding: 15px;
@@ -178,7 +182,9 @@ export default {
 		.data-item {
 			width: 100%;
 			margin-bottom: 22px;
+			box-sizing:border-box;
 			.title {
+				box-sizing:border-box;
 				width: 100%;
 				display: flex;
 				align-items: center;
@@ -208,8 +214,9 @@ export default {
 	.user-list {
 		display: flex;
 		flex-direction: row;
-    	flex-wrap: wrap;
+    flex-wrap: wrap;
 		.tag-cls {
+			box-sizing: border-box;
 			padding: 4px 8px;
 			height: 30px;
 			border-radius: 15px;

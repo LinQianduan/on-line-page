@@ -21,11 +21,14 @@ const handleClick = () => {
 .navigation {
 	width: 100%;
 	height: 100%;
+	box-sizing: border-box;
 	.card {
 		left: 0;
 		right: 0;
 		margin: 0 auto;
 		width: 1200px;
+		box-sizing: border-box;
+		border-radius: 6px;
 		min-height: 100%;
 		background-color: #fff;
 	}
