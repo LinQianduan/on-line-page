@@ -1,4 +1,4 @@
-
+<script lang="tsx">
 import { defineComponent } from 'vue'
 import MDialog from '@/components/MDialog/index.vue'
 import { ref } from "vue";
@@ -41,3 +41,4 @@ export default defineComponent({ // 传入组件配置
     return render
   }
 })
+</script>

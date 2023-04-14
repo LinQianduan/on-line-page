@@ -55,7 +55,8 @@ const setBack = (text: number | string) => {
 defineExpose({
   flipDown,
   setFront,
-  setBack
+  setBack,
+  frontText
 });
 </script>
 <style scoped lang="scss">

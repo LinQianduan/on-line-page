@@ -11,7 +11,7 @@
   </div>
 </template>
 <script setup lang="ts" name="Clock">
-import { ref, reactive, onMounted, nextTick } from "vue";
+import { ref, reactive, onMounted, nextTick, onBeforeUnmount } from "vue";
 import Flipper from './Flipper.vue'
 import { parseTime } from '@/utils/index'
 
@@ -42,7 +42,7 @@ const run = () => {
     let nowTimeStr = parseTime(new Date(now.getTime() - 1000), '{hh}{ii}{ss}')
     let nextTimeStr = parseTime(now, '{hh}{ii}{ss}')
     for (let i = 0; i < flipObjs.arr.length; i++) {
-      if (nowTimeStr[i] === nextTimeStr[i]) {
+      if (nowTimeStr[i] == nextTimeStr[i] && nowTimeStr[i] == flipObjs.arr[i].value.frontText) {
         continue
       }
       nextTick(() => {
@@ -69,8 +69,11 @@ onMounted(() => {
 		]
 		init()
 		run()
+		
 	})
+})
 
+onBeforeUnmount(() => {
 })
 
 </script>
