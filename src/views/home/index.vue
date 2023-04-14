@@ -3,81 +3,99 @@
 		<div class="main">
 			<div class="container">
 				<div class="con-left">
-					<div class="left-top">
-						<img class="photo-img" src="@/assets/image/logo.png" alt="">
-						<div class="name">
-							<span class="img-title-big">always online</span>
-						</div>
-					</div>
-					<div class="left-center cards">
-						<div class="des-title">
-							<span>Hello&nbsp;World&nbsp;!</span><br />
-							<span>一个建立于 21 世纪的小站，存活于互联网的边缘</span>
-						</div>
-					</div>
-					<div class="left-photo">
-						<Accordion />
-					</div>
-					<div class="left-bottom">
-						<div class="icon-list">
-							<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
-								<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
-							</div>
-							<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
-								<SvgIcon name="GitHub" :iconStyle="iconStyle" />
-							</div>
-							<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
-								<SvgIcon name="information" :iconStyle="{...iconStyle, width: '38px', height: '38px'}" />
-							</div>
-							<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
-								<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
+					<Transition appear name="fade-left">
+						<div class="left-top">
+							<img class="photo-img" src="@/assets/image/logo.png" alt="">
+							<div class="name">
+								<span class="img-title-big">always online</span>
 							</div>
 						</div>
-						<div class="description">
-							{{ iconDescription }}
+					</Transition>
+					
+					<Transition appear name="fade-left">
+						<div class="left-center cards">
+							<div class="des-title">
+								<span>Hello&nbsp;World&nbsp;!</span><br />
+								<span>一个建立于 21 世纪的小站，存活于互联网的边缘</span>
+							</div>
 						</div>
-					</div>
+					</Transition>
+					
+					<Transition appear name="fade-left">
+						<div class="left-photo">
+							<Accordion />
+						</div>
+					</Transition>
+					<Transition appear name="fade-left">
+						<div class="left-bottom">
+							<div class="icon-list">
+								<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
+									<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
+								</div>
+								<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
+									<SvgIcon name="GitHub" :iconStyle="iconStyle" />
+								</div>
+								<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
+									<SvgIcon name="information" :iconStyle="{...iconStyle, width: '38px', height: '38px'}" />
+								</div>
+								<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
+									<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
+								</div>
+							</div>
+							<div class="description">
+								{{ iconDescription }}
+							</div>
+						</div>
+					</Transition>
+					
 				</div>
 				<div class="con-right">
-					<div class="module">
-						<div class="cards hitokoto" :style="{ backgroundColor: isLoading ? 'rgb(0 0 0 / 50%)' : 'rgb(0 0 0 / 25%)' }">
-							<div class="tootip">点击切换一言</div>
-							<div class="hitokoto-all" @click="switchHitokotoFn">
-								<div class="hitokoto-text"><span id="hitokoto_text">{{ hitokoto.hitokoto }}</span>
+					<Transition appear name="fade-right">
+						<div class="module">
+							<div class="cards hitokoto" :style="{ backgroundColor: isLoading ? 'rgb(0 0 0 / 50%)' : 'rgb(0 0 0 / 25%)' }">
+								<div class="tootip">点击切换一言</div>
+								<div class="hitokoto-all" @click="switchHitokotoFn">
+									<div class="hitokoto-text"><span id="hitokoto_text">{{ hitokoto.hitokoto }}</span>
+									</div>
+									<div class="hitokoto-from">-「&nbsp;<span id="from_text">{{ hitokoto.from }}</span>&nbsp;」
+									</div>
 								</div>
-								<div class="hitokoto-from">-「&nbsp;<span id="from_text">{{ hitokoto.from }}</span>&nbsp;」
+							</div>
+							<div class="cards time" v-loading="timeLoading" element-loading-background="rgba(0, 0, 0, 0.25)">
+								<div class="top">
+									{{ date.substring(0, 4) }}&nbsp;年&nbsp;{{
+										date.substring(4, 6)
+									}}&nbsp;月&nbsp;{{ date.substring(6, 8) }}&nbsp;日&nbsp;
+									<span>{{ week }}</span>
+								</div>
+								<div class="draw">
+									<FlipClock></FlipClock>
+								</div>
+								<div class="weather">
+									<a  href="javascript:void(0)" @click="openSearchReg">{{ region }}</a>
+									&nbsp;&nbsp;
+									&nbsp;
+									<span>{{ weather.temp || '--' }}°C</span>
+									&nbsp;&nbsp;
+									<span>{{ weather.text || '--' }}</span>
+									&nbsp;&nbsp;
+									<span>{{ weather.windDir || '--' }}</span>
 								</div>
 							</div>
 						</div>
-						<div class="cards time" v-loading="timeLoading" element-loading-background="rgba(0, 0, 0, 0.25)">
-							<div class="top">
-								{{ date.substring(0, 4) }}&nbsp;年&nbsp;{{
-									date.substring(4, 6)
-								}}&nbsp;月&nbsp;{{ date.substring(6, 8) }}&nbsp;日&nbsp;
-								<span>{{ week }}</span>
-							</div>
-							<div class="draw">
-								<FlipClock></FlipClock>
-							</div>
-							<div class="weather">
-								<a  href="javascript:void(0)" @click="openSearchReg">{{ region }}</a>
-								&nbsp;&nbsp;
-								&nbsp;
-								<span>{{ weather.temp || '--' }}°C</span>
-								&nbsp;&nbsp;
-								<span>{{ weather.text || '--' }}</span>
-								&nbsp;&nbsp;
-								<span>{{ weather.windDir || '--' }}</span>
+					</Transition>
+					<Transition appear name="fade-right">
+						<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
+							我的音乐
+						</div>
+					</Transition>
+					<Transition appear name="fade-right">
+						<div class="music-all">
+							<div class="player-box" id="player">
 							</div>
 						</div>
-					</div>
-					<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
-						我的音乐
-					</div>
-					<div class="music-all">
-						<div class="player-box" id="player">
-						</div>
-					</div>
+					</Transition>
+					
 				</div>
 				
 				<SearchReg @check-reg="checkReg" ref="searchReg"></SearchReg>
@@ -134,7 +152,6 @@ import musicList  from '@/assets/json/musicList.json'
 import { useRouter } from "vue-router";
 import { GlobalStore } from "@/stores";
 const router = useRouter()
-
 const iconStyle = ref<any>({
 	fill: '#8df',
 	width: '30px',

@@ -74,6 +74,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+	clearInterval(timer.value)
 })
 
 </script>
