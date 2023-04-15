@@ -41,6 +41,9 @@
 								<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
 									<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
 								</div>
+								<div class="icon-item" @click="leaveScreen" @mousemove="iconMousemove('largeScreen')" @mouseout="iconMouseout">
+									<SvgIcon name="large-screen" :iconStyle="{...iconStyle, paddingTop: '2px' }" />
+								</div>
 							</div>
 							<div class="description">
 								{{ iconDescription }}
@@ -153,7 +156,7 @@ import { useRouter } from "vue-router";
 import { GlobalStore } from "@/stores";
 const router = useRouter()
 const iconStyle = ref<any>({
-	fill: '#8df',
+	fill: '#fff',
 	width: '30px',
 	height: '30px'
 })
@@ -168,6 +171,8 @@ const iconMousemove = (type?: string) => {
 		iconDescription.value = '我的信息'
 	} else if(type === 'navigation') {
 		iconDescription.value = '网页导航'
+	} else if(type === 'largeScreen') {
+		iconDescription.value = '可视化大屏'
 	}
 }
 const leaveInfo = () => {
@@ -175,6 +180,9 @@ const leaveInfo = () => {
 }
 const leaveNavigation = () => {
 	router.push('/navigation')
+}
+const leaveScreen = () => {
+	router.push('/largeScreen')
 }
 
 const iconMouseout = () => {
