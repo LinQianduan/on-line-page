@@ -4,16 +4,26 @@ import './index.scss'
 import ksh from '@/assets/image/ksh33.png'
 import { useRouter } from 'vue-router'
 import ChinaMapChart from './components/chinaMapChart.vue'
+import TripModeChart from './components/tripModeChart.vue'
 export default defineComponent({
   components: {
-    ChinaMapChart
+    ChinaMapChart,
+    TripModeChart
   },
   setup() {
     const router = useRouter()
     const chinaMapChartRef = ref<InstanceType<typeof ChinaMapChart> | null>(null);
+    const tripModeChartRef = ref<InstanceType<typeof TripModeChart> | null>(null);
     onMounted(() => {
-      (chinaMapChartRef.value as any)?.initChart();
+      initCharts()
     })
+    window.onresize = () => {
+      initCharts()
+    };
+    const initCharts = () => {
+      (chinaMapChartRef.value as any)?.initChart().resize();
+      tripModeChartRef.value?.initChart().resize();
+    };
     const back = () => {
       router.go(-1)
     };
@@ -38,7 +48,9 @@ export default defineComponent({
               </div>
               <div class="div5 visual_bd">
               </div>
-              <div class="div6 visual_bd"> </div>
+              <div class="div6 visual_bd">
+                <TripModeChart ref={tripModeChartRef}></TripModeChart>
+              </div>
               <div class="div7">
                 <div class='visual_title'>
                   <span>交通流量</span>
