@@ -12,7 +12,7 @@ export default defineComponent({
     const router = useRouter()
     const chinaMapChartRef = ref<InstanceType<typeof ChinaMapChart> | null>(null);
     onMounted(() => {
-      chinaMapChartRef.value?.initChart()
+      (chinaMapChartRef.value as any)?.initChart();
     })
     const back = () => {
       router.go(-1)

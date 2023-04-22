@@ -457,7 +457,8 @@ export default defineComponent({
 			});
 
 			let option: any;
-			echarts.registerMap('china', chinaJson);
+			const geoChinaJson: any = chinaJson
+			echarts.registerMap('china', geoChinaJson);
 			option = {
 				tooltip: {
 					trigger: 'item'
