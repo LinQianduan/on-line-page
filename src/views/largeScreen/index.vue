@@ -1,12 +1,50 @@
 <script lang="tsx">
 import { defineComponent } from "vue";
-import styles from './index.module.scss'
+import './index.scss'
 export default defineComponent({
   setup() {
     const render = () => {
       return (
         <>
-          <div>可视化大屏</div>
+          <div class='large-box'>
+            <div class="parent">
+              <div class="dataScreen-header">
+                <div class="header-lf">
+                  <span class="header-screening">返 回</span>
+                </div>
+                <div class="header-ct">
+                  <div class="header-ct-title">
+                    <span>智慧旅游可视化大数据展示平台</span>
+                    <div class="header-ct-warning">平台高峰预警信息（2条）</div>
+                  </div>
+                </div>
+                <div class="header-rg">
+                  <span class="header-screening">返 回</span>
+                </div>
+              </div>
+              <div class="div5 visual_bd">
+              </div>
+              <div class="div6 visual_bd"> </div>
+              <div class="div7">
+                <div class='visual_title'>
+                  <span>交通流量</span>
+                  <img src={'src/assets/image/ksh33.png'}></img>
+                </div>
+              </div>
+              <div class="div8 visual_bd_center"> </div>
+              <div class="div9 visual_bd">
+                <div class="box10"></div>
+              </div>
+              <div class="div10 visual_bd"> </div>
+              <div class="div11 visual_bd"> </div>
+              <div class="div12">
+                <div class='visual_title'>
+                  <span>交通流量</span>
+                  <img src={'src/assets/image/ksh33.png'}></img>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       );
     };

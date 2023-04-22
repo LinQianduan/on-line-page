@@ -17,9 +17,10 @@ body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
-// #app {
-//   height: calc(100% - 80px);
-// }
+#app {
+  // height: calc(100% - 80px);
+  height: 100%;
+}
 
 // 禁止选中文字
 .no-select {
