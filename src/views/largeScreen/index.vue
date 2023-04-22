@@ -1,6 +1,7 @@
 <script lang="tsx">
 import { defineComponent } from "vue";
 import './index.scss'
+import ksh from '@/assets/image/ksh33.png'
 export default defineComponent({
   setup() {
     const render = () => {
@@ -28,7 +29,7 @@ export default defineComponent({
               <div class="div7">
                 <div class='visual_title'>
                   <span>交通流量</span>
-                  <img src={'src/assets/image/ksh33.png'}></img>
+                  <img src={ksh}></img>
                 </div>
               </div>
               <div class="div8 visual_bd_center"> </div>
@@ -40,7 +41,7 @@ export default defineComponent({
               <div class="div12">
                 <div class='visual_title'>
                   <span>交通流量</span>
-                  <img src={'src/assets/image/ksh33.png'}></img>
+                  <img src={ksh}></img>
                 </div>
               </div>
             </div>
