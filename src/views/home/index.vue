@@ -147,7 +147,7 @@ import SvgIcon from '@/components/SvgIcon/index.vue'
 import Accordion from './Accordion.vue'
 import background5 from '@/assets/image/background5.webp'
 import APlayer from 'aplayer';
-import { ref, reactive, unref, nextTick, watch, onBeforeUnmount } from "vue";
+import { ref, reactive, unref, nextTick, onBeforeUnmount } from "vue";
 import { parseTime } from '@/utils'
 import { getWeather, getMusicList, getHitokoto, getRandomCat } from '@/api/index'
 import { ElMessage } from 'element-plus'
@@ -371,6 +371,8 @@ onBeforeUnmount(() => {
 	if(time.value !== null) {
 		clearInterval(time.value)
 	}
+	if(!ap.value) return
+	ap.value.destroy()
 })
 
 

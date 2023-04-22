@@ -1,9 +1,22 @@
 <script lang="tsx">
-import { defineComponent } from "vue";
+import { ref, reactive, defineComponent, onMounted } from "vue";
 import './index.scss'
 import ksh from '@/assets/image/ksh33.png'
+import { useRouter } from 'vue-router'
+import ChinaMapChart from './components/chinaMapChart.vue'
 export default defineComponent({
+  components: {
+    ChinaMapChart
+  },
   setup() {
+    const router = useRouter()
+    const chinaMapChartRef = ref<InstanceType<typeof ChinaMapChart> | null>(null);
+    onMounted(() => {
+      chinaMapChartRef.value?.initChart()
+    })
+    const back = () => {
+      router.go(-1)
+    };
     const render = () => {
       return (
         <>
@@ -11,7 +24,7 @@ export default defineComponent({
             <div class="parent">
               <div class="dataScreen-header">
                 <div class="header-lf">
-                  <span class="header-screening">返 回</span>
+                  <span class="header-screening" onClick={back}>返 回</span>
                 </div>
                 <div class="header-ct">
                   <div class="header-ct-title">
@@ -32,7 +45,9 @@ export default defineComponent({
                   <img src={ksh}></img>
                 </div>
               </div>
-              <div class="div8 visual_bd_center"> </div>
+              <div class="div8 visual_bd_center">
+                <ChinaMapChart ref={chinaMapChartRef}></ChinaMapChart>
+              </div>
               <div class="div9 visual_bd">
                 <div class="box10"></div>
               </div>
@@ -49,7 +64,7 @@ export default defineComponent({
         </>
       );
     };
-    return render;
+    return render
   },
 });
 </script>
