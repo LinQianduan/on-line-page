@@ -84,9 +84,6 @@
 					line-height: 44px;
 					color: #fff;
 					text-align: center;
-					letter-spacing: 1px;
-					background: url('@/assets/image/dataScreen-header-warn-bg.png') no-repeat;
-					background-size: 100% 100%;
 					transform: translate(-50%);
 				}
 			}
@@ -158,6 +155,15 @@
 	.div7 {
 		grid-area: 4 / 1 / 6 / 2;
 		margin-top: 10px;
+		display: flex;
+		flex-flow: column;
+		height: 100%;
+		.chart_box {
+			flex: 1;
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
 	}
 	.div8 {
 		grid-area: 2 / 2 / 5 / 3;
@@ -189,6 +195,15 @@
 	.div12 {
 		grid-area: 4 / 3 / 6 / 4;
 		margin-top: 10px;
+		display: flex;
+		flex-flow: column;
+		height: 100%;
+		.chart_box {
+			flex: 1;
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
 	}
 
 	.visual_bd {

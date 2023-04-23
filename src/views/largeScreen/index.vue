@@ -6,16 +6,22 @@ import windowResize from '../../utils/resize';
 import { useRouter } from 'vue-router'
 import ChinaMapChart from './components/chinaMapChart.vue'
 import TripModeChart from './components/tripModeChart.vue'
+import barAccidentChart from './components/barAccidentChart.vue'
+import lineBrushChart from './components/lineBrushChart.vue'
 const { screenRef, calcRate, windowDraw, unWindowDraw } = windowResize()
 export default defineComponent({
   components: {
     ChinaMapChart,
-    TripModeChart
+    TripModeChart,
+    barAccidentChart,
+    lineBrushChart
   },
   setup() {
     const router = useRouter()
     const chinaMapChartRef = ref<InstanceType<typeof ChinaMapChart> | null>(null);
     const tripModeChartRef = ref<InstanceType<typeof TripModeChart> | null>(null);
+    const barAccidentChartRef = ref<InstanceType<typeof barAccidentChart> | null>(null);
+    const lineBrushChartRef = ref<InstanceType<typeof barAccidentChart> | null>(null);
     onMounted(() => {
       windowDraw()
       calcRate()
@@ -30,6 +36,8 @@ export default defineComponent({
     const initCharts = () => {
       (chinaMapChartRef.value as any)?.initChart().resize();
       tripModeChartRef.value?.initChart().resize();
+      barAccidentChartRef.value?.initChart().resize();
+      lineBrushChartRef.value?.initChart().resize();
     };
     const back = () => {
       router.go(-1)
@@ -46,7 +54,7 @@ export default defineComponent({
                 <div class="header-ct">
                   <div class="header-ct-title">
                     <span>智慧旅游可视化大数据展示平台</span>
-                    <div class="header-ct-warning">平台高峰预警信息（2条）</div>
+                    <dv-decoration-6 class="header-ct-warning" color={['#56e3c2', '#69a2e3']} style="width:300px; height:40px;" />
                   </div>
                 </div>
                 <div class="header-rg">
@@ -60,8 +68,11 @@ export default defineComponent({
               </div>
               <div class="div7">
                 <div class='visual_title'>
-                  <span>交通流量</span>
+                  <span>事故统计</span>
                   <img src={ksh}></img>
+                </div>
+                <div class='chart_box'>
+                  <barAccidentChart ref={barAccidentChartRef}></barAccidentChart>
                 </div>
               </div>
               <div class="div8 visual_bd_center">
@@ -78,6 +89,9 @@ export default defineComponent({
                 <div class='visual_title'>
                   <span>交通流量</span>
                   <img src={ksh}></img>
+                </div>
+                <div class='chart_box'>
+                  <lineBrushChart ref={lineBrushChartRef}></lineBrushChart>
                 </div>
               </div>
               <div class='footer-section'>
