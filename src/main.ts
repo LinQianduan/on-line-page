@@ -5,8 +5,8 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // svg icons
 import "virtual:svg-icons-register";
-
 import '@/styles/index.scss'
+import DataVVue3 from '@kjgl77/datav-vue3';
 // pinia store
 import pinia from "@/stores/index";
 
@@ -18,4 +18,4 @@ const app = createApp(App);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-app.use(router).use(I18n).use(pinia).use(ElementPlus).mount('#app');
+app.use(router).use(I18n).use(pinia).use(ElementPlus).use(DataVVue3).mount('#app');

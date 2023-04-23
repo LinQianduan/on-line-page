@@ -1,10 +1,12 @@
 <script lang="tsx">
-import { ref, reactive, defineComponent, onMounted } from "vue";
+import { ref, reactive, defineComponent, onMounted, onUnmounted } from "vue";
 import './index.scss'
 import ksh from '@/assets/image/ksh33.png'
+import windowResize from '../../utils/resize';
 import { useRouter } from 'vue-router'
 import ChinaMapChart from './components/chinaMapChart.vue'
 import TripModeChart from './components/tripModeChart.vue'
+const { screenRef, calcRate, windowDraw, unWindowDraw } = windowResize()
 export default defineComponent({
   components: {
     ChinaMapChart,
@@ -15,7 +17,12 @@ export default defineComponent({
     const chinaMapChartRef = ref<InstanceType<typeof ChinaMapChart> | null>(null);
     const tripModeChartRef = ref<InstanceType<typeof TripModeChart> | null>(null);
     onMounted(() => {
+      windowDraw()
+      calcRate()
       initCharts()
+    })
+    onUnmounted(() => {
+      unWindowDraw()
     })
     window.onresize = () => {
       initCharts()
@@ -31,7 +38,7 @@ export default defineComponent({
       return (
         <>
           <div class='large-box'>
-            <div class="parent">
+            <div class="screen-content" ref={screenRef}>
               <div class="dataScreen-header">
                 <div class="header-lf">
                   <span class="header-screening" onClick={back}>返 回</span>
@@ -58,7 +65,9 @@ export default defineComponent({
                 </div>
               </div>
               <div class="div8 visual_bd_center">
-                <ChinaMapChart ref={chinaMapChartRef}></ChinaMapChart>
+                <dv-border-box-8 dur={10}>
+                  <ChinaMapChart ref={chinaMapChartRef}></ChinaMapChart>
+                </dv-border-box-8>
               </div>
               <div class="div9 visual_bd">
                 <div class="box10"></div>
@@ -69,6 +78,19 @@ export default defineComponent({
                 <div class='visual_title'>
                   <span>交通流量</span>
                   <img src={ksh}></img>
+                </div>
+              </div>
+              <div class='footer-section'>
+                <div class='screen-footer'>
+                  <div class="screen-footer-left">
+                    <dv-decoration-10 color={['#0788b3', '#000000']} class="dv-dec-10" />
+                  </div>
+                  <div class='screen-footer-middle'>
+                    <dv-decoration-5 style={'margin-top: 8px;'} color={['#0788b3', '#000000']} dur={12} />
+                  </div>
+                  <div class='screen-footer-right'>
+                    <dv-decoration-10 color={['#0788b3', '#000000']} class="dv-dec-10 dev-reverse" />
+                  </div>
                 </div>
               </div>
             </div>
