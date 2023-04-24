@@ -8,20 +8,28 @@ import ChinaMapChart from './components/chinaMapChart.vue'
 import TripModeChart from './components/tripModeChart.vue'
 import barAccidentChart from './components/barAccidentChart.vue'
 import lineBrushChart from './components/lineBrushChart.vue'
+import barTripSortChart from './components/barTripSortChart.vue'
+import scrollTableData from './components/scrollTableData.vue'
 const { screenRef, calcRate, windowDraw, unWindowDraw } = windowResize()
 export default defineComponent({
   components: {
     ChinaMapChart,
     TripModeChart,
     barAccidentChart,
-    lineBrushChart
+    lineBrushChart,
+    barTripSortChart,
+    scrollTableData
   },
-  setup() {
+  expose: ['initCharts'],
+  methods: {},
+  setup(props, ctx) {
     const router = useRouter()
     const chinaMapChartRef = ref<InstanceType<typeof ChinaMapChart> | null>(null);
     const tripModeChartRef = ref<InstanceType<typeof TripModeChart> | null>(null);
     const barAccidentChartRef = ref<InstanceType<typeof barAccidentChart> | null>(null);
     const lineBrushChartRef = ref<InstanceType<typeof barAccidentChart> | null>(null);
+    const barTripSortChartRef = ref<InstanceType<typeof barTripSortChart> | null>(null);
+    const scrollTableDataRef = ref<InstanceType<typeof scrollTableData> | null>(null);
     onMounted(() => {
       windowDraw()
       calcRate()
@@ -37,7 +45,7 @@ export default defineComponent({
       (chinaMapChartRef.value as any)?.initChart().resize();
       tripModeChartRef.value?.initChart().resize();
       barAccidentChartRef.value?.initChart().resize();
-      lineBrushChartRef.value?.initChart().resize();
+      lineBrushChartRef.value?.initChart();
     };
     const back = () => {
       router.go(-1)
@@ -53,8 +61,8 @@ export default defineComponent({
                 </div>
                 <div class="header-ct">
                   <div class="header-ct-title">
-                    <span>智慧旅游可视化大数据展示平台</span>
-                    <dv-decoration-6 class="header-ct-warning" color={['#56e3c2', '#69a2e3']} style="width:300px; height:40px;" />
+                    <span>智慧出行可视化大数据展示平台</span>
+                    <dv-decoration-6 class="header-ct-warning" color={['#56e3c2', '#69a2e3']} style="width:260px; height:30px;" />
                   </div>
                 </div>
                 <div class="header-rg">
@@ -83,8 +91,12 @@ export default defineComponent({
               <div class="div9 visual_bd">
                 <div class="box10"></div>
               </div>
-              <div class="div10 visual_bd"> </div>
-              <div class="div11 visual_bd"> </div>
+              <div class="div10 visual_bd">
+                <scrollTableData ref={scrollTableData}></scrollTableData>
+              </div>
+              <div class="div11 visual_bd">
+                <barTripSortChart ref={barTripSortChartRef}></barTripSortChart>
+              </div>
               <div class="div12">
                 <div class='visual_title'>
                   <span>交通流量</span>

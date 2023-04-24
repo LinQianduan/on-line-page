@@ -8,16 +8,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref, onMounted, watch } from "vue";
 import * as echarts from "echarts";
+type State = {
+  pixelSeries: any[]
+}
+const state = reactive<State>({
+  pixelSeries: []
+})
 const mainRef = ref<HTMLElement | null>(null);
-let option = ref<any>(null)
-let myChart = null
+let option: any = null
+let myChart: any = null;
 const initChart = () => {
   myChart = echarts.init(mainRef.value as HTMLElement);
-  option.value = {
+  option = {
     textStyle: {
-      color: "#ffffff",
+      color: "white",
     },
     xAxis: {
       name: "X 标题",
@@ -33,7 +39,7 @@ const initChart = () => {
         show: true,
         symbol: ["none", "none"],
         lineStyle: {
-          color: "#fff",
+          color: "#ccc",
         },
       },
       axisTick: {
@@ -49,13 +55,38 @@ const initChart = () => {
         lineHeight: 30,
       },
       axisLine: {
-        show: true,
-        symbol: ["none", "none"]
+          show: true,
+          symbol: ["none", "none"],
+          lineStyle: {
+              color: "#ccc",
+          },
       },
       // 显示刻度
       axisTick: {
         show: true,
       },
+    },
+    
+    toolbox: {
+      show: true,
+      showTitle: true,
+      iconStyle: {
+        color: '#fff',
+        borderColor: '#fff'
+      },
+      feature: {
+        brush: {
+          type: ["rect", "polygon", "clear"],
+          title: {
+            rect: '矩形选择',
+            polygon: '圈选',
+            lineX: '横向选择',
+            lineY: '纵向选择',
+            keep: '保持选择',
+            clear: '清除选择'
+          }
+        }
+      }
     },
     // 框选工具
     brush: {
@@ -63,18 +94,10 @@ const initChart = () => {
       xAxisIndex: 0,
       throttleType: "debounce",
       //开启选中延迟后调用回调延迟
-      throttleDelay: 600,
+      // throttleDelay: 100,
       //选中延迟后调用回调延迟时间
 			textStyle: {
 				color: '#ffffff' // 修改文字颜色为白色
-			},
-			title: {
-				rect: '矩形选择',
-				polygon: '圈选',
-				lineX: '横向选择',
-				lineY: '纵向选择',
-				keep: '保持选择',
-				clear: '清除选择'
 			}
     },
     legend: {
@@ -142,10 +165,19 @@ const initChart = () => {
           },
         ],
         type: "line",
-        color: "#FFA826",
-        showSymbol: true,
         symbol: "emptyCircle",
-        symbolSize: 6,
+        symbolSize: 8,
+        color: '#ffe000',
+        lineStyle: {
+          normal: {
+            color: "#ffe000"
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: "#ffe000"
+          }
+        }
       },
       {
         name: "利用率",
@@ -180,19 +212,132 @@ const initChart = () => {
           },
         ],
         type: "line",
-        color: "#4DC772",
-        showSymbol: true,
         symbol: "emptyCircle",
-        symbolSize: 6,
+        symbolSize: 8,
+        color: '#00ffff',
+        lineStyle: {
+          normal: {
+            color: "#00ffff"
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: "#00ffff"
+          }
+        }
       },
     ],
   };
-  myChart.setOption(option.value);
+  myChart.setOption(option);
+  state.pixelSeries = getConvertToPixel(option.series);
+  myChart.on('brushSelected', renderBrushed)
   return myChart;
 };
+window.addEventListener("resize", () => {
+  myChart.resize();
+  // 窗口尺寸发生变化时重新获取每个点的像素坐标
+  state.pixelSeries = getConvertToPixel(option.series);
+});
+
+const getConvertToPixel = (series: any[]) => {
+  const results = series.map((v, seriesIndex: number) => {
+    const dataPxel = v.data.map((m: any, dataIndex: number) => {
+      // 坐标点转像素坐标
+      const position = myChart.convertToPixel('grid', [dataIndex, m.value]);
+      return {
+        id: m.id,
+        data: m.value,
+        xPxel: position[0],
+        yPxel: position[1],
+        seriesIndex: seriesIndex,
+        dataIndex: dataIndex,
+      };
+    });
+    return {
+      ...v,
+      dataPxel,
+    };
+  });
+  return results;
+};
+
+function renderBrushed(params: any) {
+  let brushList: any[] = [];
+  if (params.batch.length < 1 || params.batch[0].areas.length < 1) {
+    brushDotColor(brushList)
+    return;
+  }
+  const range = params.batch[0].areas[0].range;
+  state.pixelSeries.map((v) => {
+    v.dataPxel.forEach((m: any) => {
+      try {
+        let seriesIndex = m.seriesIndex;
+        let dataIndex = m.dataIndex;
+        const point = [m.xPxel, m.yPxel]
+        let flag = false
+        if (params.batch[0].areas[0].brushType == 'rect') {
+          flag = isPointInRect(point, range)
+        }
+        if (params.batch[0].areas[0].brushType == 'polygon') {
+          flag = isPointInPolygon(point, range)
+        }
+        if (flag) {
+          brushList.push(({
+            id: m.id, seriesIndex: seriesIndex, dataIndex: dataIndex,
+          }))
+        }
+      } catch (e) {
+        console.info(JSON.stringify(e));
+      }
+
+    });
+  });
+  console.log(brushList, "选中的数据");
+  brushDotColor(brushList)
+};
+// 判断像素点是否在矩形范围内
+function isPointInRect(point: any, rect: any) {
+  let x = point[0], y = point[1];
+  let x1 = rect[0][0], y1 = rect[1][0], x2 = rect[0][1], y2 = rect[1][1];
+  return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+};
+// 断像素点是否在polygon圈选范围内
+function isPointInPolygon(point: any, polygon: any) {
+  let count = 0;
+  for (let i = 0, len = polygon.length; i < len; i++) {
+    let p1 = polygon[i];
+    let p2 = polygon[(i + 1) % len];
+    if (point[1] > Math.min(p1[1], p2[1]) && point[1] <= Math.max(p1[1], p2[1])) {
+      let x = (point[1] - p1[1]) * (p2[0] - p1[0]) / (p2[1] - p1[1]) + p1[0];
+      if (x > point[0]) {
+        count++;
+      }
+    }
+  }
+  return count % 2 == 1;
+};
+// 变色选中的点变色
+function brushDotColor(list: any) {
+	const copySeries = option.series.map((seriesItem: any, seriesInx: number) => {
+		return {
+			...seriesItem,
+			itemStyle: {
+				color: (params: any) => {
+					const index = list.findIndex((m: any) => m.seriesIndex == params.seriesIndex && m.dataIndex == params.dataIndex)
+					if(index != -1) {
+						return 'crimson'
+					} else {
+						return params.color
+					}
+				}
+			}
+		}
+	})
+	myChart.setOption({ series: copySeries });
+}
 
 defineExpose({
-  initChart,
+  initChart
 });
 </script>
 

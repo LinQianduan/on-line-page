@@ -191,7 +191,13 @@
 		}
 	}
 	.div10 { grid-area: 2 / 3 / 3 / 4; }
-	.div11 { grid-area: 3 / 3 / 4 / 4; }
+	.div11 {
+		grid-area: 3 / 3 / 4 / 4;
+		.chart_box {
+			width: 100%;
+			height: 100%;
+		}
+	}
 	.div12 {
 		grid-area: 4 / 3 / 6 / 4;
 		margin-top: 10px;
