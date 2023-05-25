@@ -50,6 +50,7 @@ export default defineComponent({
     const back = () => {
       router.go(-1)
     };
+
     const render = () => {
       return (
         <>
@@ -92,7 +93,7 @@ export default defineComponent({
                 <div class="box10"></div>
               </div>
               <div class="div10 visual_bd">
-                <scrollTableData ref={scrollTableData}></scrollTableData>
+                {/* <scrollTableData ref={scrollTableData}></scrollTableData> */}
               </div>
               <div class="div11 visual_bd">
                 <barTripSortChart ref={barTripSortChartRef}></barTripSortChart>
