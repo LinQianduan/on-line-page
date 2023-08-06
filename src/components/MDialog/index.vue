@@ -1,20 +1,23 @@
 <template>
   <div class="m-dialog">
-    <el-dialog v-model="visible" v-bind="$attrs" :draggable="props.draggable" :fullscreen="fullScreen" :show-close="false">
-			<div class="d-dialog-header">
-				<div class="d-dialog-tool cu-p is-win">
-					<span title="放大/缩小"  v-if="props.showFullScreen && props.fullScreen !== undefined" @click.stop="isFullscreen">
-						<SvgIcon name="fullScreen" v-if="!props.fullScreen" :iconStyle="{ width: '14px', height: '14px'}" />
-						<SvgIcon name="fullscreen-exit-fill" v-else :iconStyle="{ width: '14px', height: '14px'}" />
-					</span>
-					<span title="关闭" @click.stop="handleClose">
-						<SvgIcon name="close" :iconStyle="{ width: '16px', height: '16px'}" />
-					</span>
+    <el-dialog v-bind="$attrs" :fullscreen="fullScreen" :show-close="false">
+			<template #header="{ close, titleId, titleClass }">
+				<div class="d-dialog-header" :id="titleId" :class="titleClass">
+					<div class="d-dialog-tool cu-p is-win">
+						<span title="放大/缩小"  v-if="props.showFullScreen && props.fullScreen !== undefined" @click.stop="isFullscreen">
+							<SvgIcon name="fullScreen" v-if="!props.fullScreen" :iconStyle="{ width: '14px', height: '14px'}" />
+							<SvgIcon name="fullscreen-exit-fill" v-else :iconStyle="{ width: '14px', height: '14px'}" />
+						</span>
+						<span title="关闭" @click.stop="close">
+							<SvgIcon name="close" :iconStyle="{ width: '16px', height: '16px'}" />
+						</span>
+					</div>
+					<div class="d-dialog-title">{{ title }}</div>
 				</div>
-				<div class="d-dialog-title">{{ title }}</div>
-			</div>
-
-      <slot name="default"></slot>
+			</template>
+			<template v-for="(value, name) in $slots" #[name]="slotData">
+				<slot :name="name" v-bind="slotData || {}"></slot>
+			</template>
     </el-dialog>
   </div>
 </template>
@@ -23,8 +26,6 @@ import { ref, reactive, onUpdated } from "vue";
 import SvgIcon from '@/components/SvgIcon/index.vue'
 
 interface Props {
-  modelValue: boolean;
-	draggable?: boolean;
 	fullScreen?: boolean;
 	showFullScreen?: boolean; // 是否显示全屏按钮
 	bgColor?: string; // 背景颜色
@@ -40,24 +41,14 @@ interface Emits {
 const emits = defineEmits<Emits>();
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: false,
-	draggable: false,
 	fullScreen: false,
 	showFullScreen: true,
 	bgColor: "#fff",
 	title: ''
 });
 
-// 关闭弹窗
-function handleClose() {
-	visible.value = false
-	emits('update:modelValue', false)
-}
-
-const visible = ref<boolean>(props.modelValue as boolean)
 const fullScreen = ref<boolean>(false)
 onUpdated(() => {
-  visible.value = props.modelValue
   if (props.fullScreen !== undefined) {
     fullScreen.value = props.fullScreen
   }
@@ -80,12 +71,13 @@ function isFullscreen() {
 	}
   :deep(.el-dialog__header) {
     position: absolute;
-    left: 100px;
+    left: 0;
     top: 0;
-    right: 100px;
+    right: 0;
     z-index: 10;
     height: 10px;
     padding: 0;
+		margin-right: 0px;
     text-align: center;
   }
   :deep(.el-dialog__body) {

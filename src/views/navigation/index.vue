@@ -8,13 +8,17 @@
 	</div>
 </template>
 <script setup lang='ts'>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance } from 'vue'
 import ListPublishing from './ListPublishing.vue'
 let dialogUserSelectRef = ref()
 const handleClick = () => {
 	// console.log(listPublishingRef.value.open)
 	dialogUserSelectRef.value.open('add')
 }
+onMounted(() => {
+	const instance = getCurrentInstance() as any
+	console.log(instance.proxy.$create, 19)
+})
 </script>
 <style scoped lang='scss'>
 .navigation {

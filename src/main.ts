@@ -14,7 +14,11 @@ import router from '@/routers/index'
 // vue i18n
 import I18n from "@/languages/index";
 
+import { createComponent } from "@/utils/createComponent"
+
 const app = createApp(App);
+
+app.config.globalProperties.$create = createComponent;
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
