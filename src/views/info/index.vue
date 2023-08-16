@@ -25,7 +25,7 @@ export default defineComponent({ // 传入组件配置
       borderRight: '1px solid #ddd',
       background: '#f5f5f5'
     };
-    const render = () => {
+    const render = () => { 
       return <>
         <div class={sidebarStyle} style={sidebarStyle}>开发中。。。</div>
         <el-button type="default" style="margin-left: 40px;" onClick={ handleClick }>点击弹窗</el-button>
