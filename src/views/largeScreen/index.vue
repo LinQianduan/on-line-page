@@ -1,7 +1,7 @@
 <script lang="tsx">
 import { ref, reactive, defineComponent, onMounted, onUnmounted } from "vue";
 import './index.scss'
-import ksh from '@/assets/image/ksh33.png'
+import ksh from '@/assets/image/ksh33.png' 
 import windowResize from '../../utils/resize';
 import { useRouter } from 'vue-router'
 import ChinaMapChart from './components/chinaMapChart.vue'
@@ -10,6 +10,10 @@ import barAccidentChart from './components/barAccidentChart.vue'
 import lineBrushChart from './components/lineBrushChart.vue'
 import barTripSortChart from './components/barTripSortChart.vue'
 import scrollTableData from './components/scrollTableData.vue'
+import CenterBottom from './components/centerBottom.vue'
+import map from '@/assets/img/map.png'
+import lbx from '@/assets/img/lbx.png'
+import jt from '@/assets/img/jt.png'
 const { screenRef, calcRate, windowDraw, unWindowDraw } = windowResize()
 export default defineComponent({
   components: {
@@ -18,7 +22,8 @@ export default defineComponent({
     barAccidentChart,
     lineBrushChart,
     barTripSortChart,
-    scrollTableData
+    scrollTableData,
+    CenterBottom
   },
   expose: ['initCharts'],
   methods: {},
@@ -85,12 +90,25 @@ export default defineComponent({
                 </div>
               </div>
               <div class="div8 visual_bd_center">
+                <div class="map">
+                  <div class="map1">
+                    <img src={lbx} />
+                  </div>
+                  <div class="map2">
+                    <img src={jt} />
+                  </div>
+                  <div class="map3">
+                    <img src={map} />
+                  </div>
+                </div>
                 <dv-border-box-8 dur={10}>
                   <ChinaMapChart ref={chinaMapChartRef}></ChinaMapChart>
                 </dv-border-box-8>
               </div>
               <div class="div9 visual_bd">
-                <div class="box10"></div>
+                <div class="box10">
+                  <center-bottom></center-bottom>
+                </div>
               </div>
               <div class="div10 visual_bd">
                 {/* <scrollTableData ref={scrollTableData}></scrollTableData> */}

@@ -30,7 +30,7 @@ const initChart = () => {
       data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       type: "category",
       axisLabel: {
-        fontSize: 14,
+        fontSize: 12,
         rotate: 45,
         interval: "auto",
       },
@@ -39,11 +39,15 @@ const initChart = () => {
         show: true,
         symbol: ["none", "none"],
         lineStyle: {
-          color: "#ccc",
+          color: "#57617B"
         },
       },
       axisTick: {
         show: true,
+        // 设置颜色
+        lineStyle: {
+          color: "#57617B"
+        },
       },
     },
     yAxis: {
@@ -51,28 +55,33 @@ const initChart = () => {
       type: "value",
       axisLabel: {
         formatter: "{value}",
-        fontSize: 16,
+        fontSize: 12,
         lineHeight: 30,
       },
       axisLine: {
           show: true,
           symbol: ["none", "none"],
           lineStyle: {
-              color: "#ccc",
+            color: "#57617B"
           },
       },
       // 显示刻度
       axisTick: {
         show: true,
       },
+      splitLine: {
+        lineStyle: {
+          color: '#57617B'
+        }
+      }
     },
     
     toolbox: {
       show: true,
       showTitle: true,
       iconStyle: {
-        color: '#fff',
-        borderColor: '#fff'
+        color: '#044BB5',
+        borderColor: '#044BB5'
       },
       feature: {
         brush: {
@@ -128,7 +137,7 @@ const initChart = () => {
       padding: 5,
       textStyle: {
         color: "#fff",
-        fontSize: 14,
+        fontSize: 12,
       },
     },
     series: [

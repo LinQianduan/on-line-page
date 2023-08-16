@@ -494,10 +494,10 @@ export default defineComponent({
 								r: 0.8,
 								colorStops: [{
 									offset: 0,
-									color: 'rgba(147, 235, 248, 0.2)' // 0% 处的颜色
+									color: 'rgba(14, 92, 210, 0.2)' // 0% 处的颜色
 								}, {
 									offset: 1,
-									color: 'rgba(147, 235, 248, 0.7)' // 100% 处的颜色
+									color: '#044BB5' // 100% 处的颜色
 								}],
 								globalCoord: false // 缺省为 false
 							},
@@ -507,7 +507,7 @@ export default defineComponent({
 							shadowBlur: 10
 						},
 						emphasis: {
-							areaColor: '#389BB7',
+							areaColor: 'rgba(14, 92, 210, 1)',
 							borderWidth: 0
 						}
 				}

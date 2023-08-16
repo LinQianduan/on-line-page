@@ -28,9 +28,9 @@ export default class Flipper {
 			this.isFlipping = true;
 			this.setFrontTime(currentTime);
 			this.setBackTime(nextTime);
-			this.flipNode.classList.add('running');
+			this.flipNode?.classList?.add('running');
 			setTimeout(() => {
-					this.flipNode.classList.remove('running');
+					this.flipNode?.classList?.remove('running');
 					this.isFlipping = false;
 					this.setFrontTime(nextTime);
 			}, this.duration);
