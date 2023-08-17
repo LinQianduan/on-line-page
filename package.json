@@ -9,6 +9,7 @@
     "build:dev": "vue-tsc --noEmit && vite build --mode development",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
     "build:pro": "vue-tsc --noEmit && vite build --mode production",
+    "docs:dev": "vitepress dev docs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -38,6 +39,7 @@
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
+    "vitepress": "^1.0.0-rc.4",
     "vue-tsc": "^0.40.4"
   }
 }

@@ -5,11 +5,11 @@
 			@load="onLoad"
     	:backgroundColor="options.backgroundColor"
 			:cameraPosition="options.cameraPosition"
-			:rotation="options.rotation"
 			:position="options.position"
 			:lights="options.lights"
+			:rotation="options.rotation"
 			@click="handleClick"
-		/>
+			/>
 	</div>
 </template>
 
@@ -17,12 +17,12 @@
 import { ref, reactive } from 'vue';
 import { ModelFbx } from 'vue-3d-model';
 const options = reactive({
-	src: '/src/assets/static/huochezhan/3d66.com_7851718.fbx',
+	src: '/src/assets/static/huochezhan/huochezhan.FBX',
 	backgroundColor: '#1e1e1e' as unknown as number,
-	cameraPosition: { x: 0, y: 0, z: 0 },
+	cameraPosition: { x: 60, y: 60, z: 0 },
 	rotation: {
-		x: -Math.PI / 2,
-		y: 0,
+		x: 0,
+		y: -Math.PI / 4,
 		z: 0,
 	},
 	position: {
@@ -47,7 +47,8 @@ const options = reactive({
 });
 
 const onLoad = () => {
-	rotate();
+	console.log('onLoad')
+	// rotate();
 };
 let object: any = null
 let colorMap = new Map();
