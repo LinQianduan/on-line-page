@@ -179,7 +179,7 @@ const leaveInfo = () => {
 	router.push('/info')
 }
 const leaveNavigation = () => {
-	router.push('/navigation')
+	router.push('/3dModel')
 }
 const leaveScreen = () => {
 	router.push('/largeScreen')

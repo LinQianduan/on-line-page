@@ -46,6 +46,11 @@ export const staticRouter: RouteRecordRaw[] = [
 		meta: { title: '可视化大屏' }
 	},
 	{
+		path: '/3dModel',
+		component: () => import("@/views/3dModel/index.vue"),
+		meta: { title: '可视化大屏' }
+	},
+	{
 		path: '/login',
 		component: () => import("@/views/login/index.vue"),
 		meta: { title: '登录' }

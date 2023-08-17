@@ -2,27 +2,27 @@
 	<div class="center-bottom">
 		<div class="data1 data-item">
 			<div class="qiu">
-					<span>70%</span>
+					<span>20%</span>
 			</div>
-			<span class="text">折扣率</span>
+			<span class="text">火车</span>
 		</div>
 		<div class="data2 data-item">
 			<div class="qiu">
-					<span>70%</span>
+					<span>10%</span>
 			</div>
-			<span class="text">售罄率</span>
+			<span class="text">飞机</span>
 		</div>
 		<div class="data3 data-item">
 			<div class="qiu">
-					<span>86%</span>
+					<span>30%</span>
 			</div>
-			<span class="text">完成率</span>
+			<span class="text">客车</span>
 		</div>
 		<div class="data4 data-item">
 			<div class="qiu">
-					<span>73%</span>
+					<span>40%</span>
 			</div>
-			<span class="text">同比</span>
+			<span class="text">轮渡</span>
 		</div>
 	</div>
 </template>

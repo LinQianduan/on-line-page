@@ -1,0 +1,9 @@
+﻿C:\Users\admin\Desktop\5d\t$m$p$$$\station.max
+C:\Users\admin\Desktop\5d\t$m$p$$$\MAXFILES.TXT
+C:\Users\admin\Documents\V-Ray Material Library\assets\Metal\Grunge_Q_hires_lin_srgb.tx
+C:\Users\admin\Documents\V-Ray Material Library\assets\Ceramic & Porcelain\Porcelain_B_Bump_01_hires_lin_srgb.tx
+C:\Users\admin\Documents\V-Ray Material Library\assets\Metal\M_Pattern_L_Mask_hires_srgb.tx
+C:\Users\admin\Desktop\5d\stationok\RenderStuff_Apple_Mac_24'_monitor_desktop.jpg
+C:\Users\admin\Documents\V-Ray Material Library\assets\Metal\M_Pattern_J_Mask_hires_raw.tx
+\\192.168.0.183\三维后期部\部门素材库\三维组\01 模型库\01 公司项目\华为\建筑场景\stationok\wTR.jpg
+D:\常用贴图\HDRI\产品HDR\ks有用02.hdr

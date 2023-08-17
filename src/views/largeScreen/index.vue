@@ -11,6 +11,8 @@ import lineBrushChart from './components/lineBrushChart.vue'
 import barTripSortChart from './components/barTripSortChart.vue'
 import scrollTableData from './components/scrollTableData.vue'
 import CenterBottom from './components/centerBottom.vue'
+import RightTopChart from './components/rightTopChart.vue'
+import LeftTopChart from './components/leftTopChart.vue'
 import map from '@/assets/img/map.png'
 import lbx from '@/assets/img/lbx.png'
 import jt from '@/assets/img/jt.png'
@@ -23,7 +25,9 @@ export default defineComponent({
     lineBrushChart,
     barTripSortChart,
     scrollTableData,
-    CenterBottom
+    CenterBottom,
+    RightTopChart,
+    LeftTopChart
   },
   expose: ['initCharts'],
   methods: {},
@@ -34,6 +38,8 @@ export default defineComponent({
     const barAccidentChartRef = ref<InstanceType<typeof barAccidentChart> | null>(null);
     const lineBrushChartRef = ref<InstanceType<typeof barAccidentChart> | null>(null);
     const barTripSortChartRef = ref<InstanceType<typeof barTripSortChart> | null>(null);
+    const rightTopChartRef = ref<InstanceType<typeof RightTopChart> | null>(null);
+    const LeftTopChartRef = ref<InstanceType<typeof LeftTopChart> | null>(null);
     const scrollTableDataRef = ref<InstanceType<typeof scrollTableData> | null>(null);
     onMounted(() => {
       windowDraw()
@@ -51,9 +57,14 @@ export default defineComponent({
       tripModeChartRef.value?.initChart().resize();
       barAccidentChartRef.value?.initChart().resize();
       lineBrushChartRef.value?.initChart();
+      rightTopChartRef.value?.initChart().resize();
+      LeftTopChartRef.value?.initChart().resize();
     };
     const back = () => {
       router.go(-1)
+    };
+    const goHome = () => {
+      router.push('/')
     };
 
     const render = () => {
@@ -72,10 +83,11 @@ export default defineComponent({
                   </div>
                 </div>
                 <div class="header-rg">
-                  <span class="header-screening">返 回</span>
+                  <span class="header-screening" onClick={goHome}>首 页</span>
                 </div>
               </div>
               <div class="div5 visual_bd">
+                <LeftTopChart ref={ LeftTopChartRef }></LeftTopChart>
               </div>
               <div class="div6 visual_bd">
                 <TripModeChart ref={tripModeChartRef}></TripModeChart>
@@ -111,7 +123,7 @@ export default defineComponent({
                 </div>
               </div>
               <div class="div10 visual_bd">
-                {/* <scrollTableData ref={scrollTableData}></scrollTableData> */}
+                <right-top-chart ref={rightTopChartRef}></right-top-chart>
               </div>
               <div class="div11 visual_bd">
                 <barTripSortChart ref={barTripSortChartRef}></barTripSortChart>
