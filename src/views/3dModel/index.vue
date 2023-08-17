@@ -16,8 +16,10 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { ModelFbx } from 'vue-3d-model';
+const file = new URL("@/assets/static/huochezhan/huochezhan.FBX", import.meta.url).href
+console.log(file, 20)
 const options = reactive({
-	src: '/src/assets/static/huochezhan/huochezhan.FBX',
+	src: file,
 	backgroundColor: '#1e1e1e' as unknown as number,
 	cameraPosition: { x: 60, y: 60, z: 0 },
 	rotation: {
