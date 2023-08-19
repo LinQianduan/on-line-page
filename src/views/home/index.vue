@@ -356,14 +356,14 @@ nextTick(() => {
 				dom.innerHTML = '音频发生错误, 将在2秒内跳过。'
 			}
 	});
-	// 底部歌词
-	time.value = setInterval(() => {
-		const lrcDom = document.getElementById('lrc') as HTMLElement
+	ap.value.on('timeupdate', function() {
 		const currentDom = document.querySelector(".aplayer-lrc-current") as HTMLElement
 		if(currentDom) {
-			footerLrc.value = currentDom.innerText
+			if(footerLrc.value !== currentDom.innerText) {
+				footerLrc.value = currentDom.innerText
+			}
 		}
-	}, 500)
+	})
 })
 
 // 离开之前清楚定时器
