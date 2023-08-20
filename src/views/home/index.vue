@@ -662,17 +662,17 @@ onBeforeUnmount(() => {
 }
 .cards {
 	box-sizing: border-box;
-  transition: 0.5s;
+  transition: transform 0.5s;
   backdrop-filter: blur(10px);
   &:hover {
     transform: scale(1.01);
 		backdrop-filter: blur(0px);
-    transition: 0.5s;
+    transition: transform 0.5s;
   }
   &:active {
     transform: scale(0.95);
 		backdrop-filter: blur(0px);
-    transition: 0.5s;
+    transition: transform 0.5s;
   }
 }
 :deep(.el-message--info) {
