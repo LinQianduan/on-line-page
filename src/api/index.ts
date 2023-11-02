@@ -58,3 +58,5 @@ export function getRandomCat(params?: any) {
     params
   })
 }
+
+// addUser, updateUser, delUser, getList

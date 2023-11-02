@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted, nextTick } from "vue";
 import * as echarts from "echarts";
 const state = reactive({
 	leiData: ['0-5时', '6-11时', '12-17时', '18-23时'],
@@ -47,9 +47,11 @@ const state = reactive({
 	]
 });
 const mainRef = ref<HTMLElement | null>(null);
+let myChart: any = null;
+let option: any = null;
 const initChart = () => {
-  const myChart = echarts.init(mainRef.value as HTMLElement);
-  let option: any = {
+  myChart = echarts.init(mainRef.value as HTMLElement);
+  option = {
 		textStyle: {
       color: "white",
     },
@@ -72,10 +74,6 @@ const initChart = () => {
     },
     tooltip: {
       trigger: "axis",
-    },
-    legend: {
-      orient: "vertical",
-      data: ["简易程序案件数"],
     },
     grid: {
       left: "3%",
@@ -230,6 +228,29 @@ const initChart = () => {
   myChart.setOption(option);
   return myChart;
 };
+
+onMounted(() => {
+	nextTick(() => {
+		if(myChart) {
+			myChart.on("showTip", (params: any) => {
+				myChart.setOption({
+					timeline: {
+						autoPlay: false
+					}
+				});
+			})
+			myChart.on("hideTip", (params: any) => {
+				myChart.setOption({
+					timeline: {
+						autoPlay: true
+					}
+				});
+			})
+		}
+	})
+
+});
+
 
 defineExpose({
   initChart,

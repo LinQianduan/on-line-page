@@ -27,6 +27,15 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig =>{
       host: "0.0.0.0",
 			port: viteEnv.VITE_PORT,
 			open: viteEnv.VITE_OPEN,
+      cors: true,
+			// 跨域代理配置
+			proxy: {
+				"/api": {
+          target: "http://localhost:3000",
+					changeOrigin: true,
+					rewrite: path => path.replace(/^\/api/, "")
+				}
+			}
     },
     css:{
       preprocessorOptions: {

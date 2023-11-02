@@ -176,7 +176,7 @@ const iconMousemove = (type?: string) => {
 	}
 }
 const leaveInfo = () => {
-	router.push('/info')
+	router.push('/test')
 }
 const leaveNavigation = () => {
 	router.push('/3dModel')

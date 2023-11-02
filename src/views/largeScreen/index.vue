@@ -60,6 +60,7 @@ export default defineComponent({
       rightTopChartRef.value?.initChart().resize();
       LeftTopChartRef.value?.initChart().resize();
     };
+    
     const back = () => {
       router.go(-1)
     };
