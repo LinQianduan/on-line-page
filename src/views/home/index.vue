@@ -16,7 +16,7 @@
 						<div class="left-center cards">
 							<div class="des-title">
 								<span>Hello&nbsp;World&nbsp;!</span><br />
-								<span>一个建立于 21 世纪的小站，存活于互联网的边缘</span>
+								<span>一个建立于 21 世纪的小站，存活于互联网的边缘。</span>
 							</div>
 						</div>
 					</Transition>
