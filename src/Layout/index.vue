@@ -6,8 +6,8 @@
       <div class="cover"></div>
     </div>
     <div class="bg-col">
-      <div class="col-left"></div>
-      <div class="col-right"></div>
+      <div class="col-left" ref="colLeftRef"></div>
+      <div class="col-right" ref="colRightRef"></div>
     </div>
 		<div class="sidebar-container">
 			<Sidebar class="sidebar" />
@@ -18,10 +18,27 @@
 <script setup lang='ts'>
 import AppMain from './AppMain.vue'
 import Sidebar from './Sidebar.vue'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import background5 from '@/assets/image/background5.webp'
 import { GlobalStore } from '@/stores'
+import { gsap } from 'gsap';
 const store = GlobalStore()
+const colLeftRef = ref(null);
+const colRightRef = ref(null);
+onMounted(() => {
+  gsap.to(colLeftRef.value, {
+    left: "-100%",
+    duration: 1.5,
+    display: "none",
+    ease: 'power1.inOut'
+  })
+  gsap.to(colRightRef.value, {
+    right: "-100%",
+    duration: 1.5,
+    display: "none",
+    ease: 'power1.inOut'
+  })
+})
 </script>
 <style scoped lang='scss'>
 .app-wrapper {
@@ -90,7 +107,7 @@ const store = GlobalStore()
       background-color: #4b4b4b;
       z-index: 999;
       opacity: 0.9;
-      animation: leftMove 1s ease-in-out both;
+      // animation: leftMove 1s ease-in-out both;
     }
     .col-right {
       position: absolute;
@@ -101,7 +118,7 @@ const store = GlobalStore()
       height: 100vh;
       background-color: #4b4b4b;
       opacity: 0.9;
-      animation: rightMove 1s ease-in-out both;
+      // animation: rightMove 1s ease-in-out both;
     }
     @keyframes leftMove {
       0% {

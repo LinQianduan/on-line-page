@@ -3,101 +3,90 @@
 		<div class="main">
 			<div class="container">
 				<div class="con-left">
-					<Transition appear name="fade-left">
-						<div class="left-top">
-							<img class="photo-img" src="@/assets/image/logo.png" alt="">
-							<div class="name">
-								<span class="img-title-big">always online</span>
-							</div>
+
+					<div class="left-top anm1">
+						<img class="photo-img" src="@/assets/image/logo.png" alt="">
+						<div class="name">
+							<span class="img-title-big">always online</span>
 						</div>
-					</Transition>
+					</div>
 					
-					<Transition appear name="fade-left">
-						<div class="left-center cards">
-							<div class="des-title">
-								<span>Hello&nbsp;World&nbsp;!</span><br />
-								<span>一个建立于 21 世纪的小站，存活于互联网的边缘。</span>
-							</div>
+					<div class="left-center cards anm4">
+						<div class="des-title">
+							<span>Hello&nbsp;World&nbsp;!</span><br />
+							<span>一个建立于 21 世纪的小站，存活于互联网的边缘。</span>
 						</div>
-					</Transition>
+					</div>
 					
-					<Transition appear name="fade-left">
-						<div class="left-photo">
+					<div class="left-photo anm5">
+						<div style="width: 100%; height: 100%; position: relative;">
 							<Accordion />
 						</div>
-					</Transition>
-					<Transition appear name="fade-left">
-						<div class="left-bottom">
-							<div class="icon-list">
-								<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
-									<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
-								</div>
-								<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
-									<SvgIcon name="GitHub" :iconStyle="iconStyle" />
-								</div>
-								<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
-									<SvgIcon name="information" :iconStyle="{...iconStyle, width: '38px', height: '38px'}" />
-								</div>
-								<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
-									<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
-								</div>
-								<div class="icon-item" @click="leaveScreen" @mousemove="iconMousemove('largeScreen')" @mouseout="iconMouseout">
-									<SvgIcon name="large-screen" :iconStyle="{...iconStyle, paddingTop: '2px' }" />
-								</div>
+					</div>
+					<div class="left-bottom anm6">
+						<div class="icon-list">
+							<div class="icon-item" @click="setBgImgInit" @mousemove="iconMousemove('switch')" @mouseout="iconMouseout">
+								<SvgIcon name="switch" :iconStyle="{...iconStyle, width: '34px', height: '34px'}" />
 							</div>
-							<div class="description">
-								{{ iconDescription }}
+							<div class="icon-item" @click="getToGithub" @mousemove="iconMousemove('github')" @mouseout="iconMouseout">
+								<SvgIcon name="GitHub" :iconStyle="iconStyle" />
+							</div>
+							<div class="icon-item" @click="leaveInfo" @mousemove="iconMousemove('information')" @mouseout="iconMouseout">
+								<SvgIcon name="information" :iconStyle="{...iconStyle, width: '38px', height: '38px'}" />
+							</div>
+							<div class="icon-item" @click="leaveNavigation" @mousemove="iconMousemove('navigation')" @mouseout="iconMouseout">
+								<SvgIcon name="navigation" :iconStyle="{...iconStyle, width: '28px', height: '28px', paddingTop: '2px' }" />
+							</div>
+							<div class="icon-item" @click="leaveScreen" @mousemove="iconMousemove('largeScreen')" @mouseout="iconMouseout">
+								<SvgIcon name="large-screen" :iconStyle="{...iconStyle, paddingTop: '2px' }" />
 							</div>
 						</div>
-					</Transition>
+						<div class="description">
+							{{ iconDescription }}
+						</div>
+					</div>
 					
 				</div>
 				<div class="con-right">
-					<Transition appear name="fade-right">
-						<div class="module">
-							<div class="cards hitokoto" :style="{ backgroundColor: isLoading ? 'rgb(0 0 0 / 50%)' : 'rgb(0 0 0 / 25%)' }">
-								<div class="tootip">点击切换一言</div>
-								<div class="hitokoto-all" @click="switchHitokotoFn">
-									<div class="hitokoto-text"><span id="hitokoto_text">{{ hitokoto.hitokoto }}</span>
-									</div>
-									<div class="hitokoto-from">-「&nbsp;<span id="from_text">{{ hitokoto.from }}</span>&nbsp;」
-									</div>
+					<div class="module">
+						<div class="cards hitokoto anm2" :style="{ backgroundColor: isLoading ? 'rgb(0 0 0 / 50%)' : 'rgb(0 0 0 / 25%)' }">
+							<div class="tootip">点击切换一言</div>
+							<div class="hitokoto-all" @click="switchHitokotoFn">
+								<div class="hitokoto-text"><span id="hitokoto_text">{{ hitokoto.hitokoto }}</span>
 								</div>
-							</div>
-							<div class="cards time" v-loading="timeLoading" element-loading-background="rgba(0, 0, 0, 0.25)">
-								<div class="top">
-									{{ date.substring(0, 4) }}&nbsp;年&nbsp;{{
-										date.substring(4, 6)
-									}}&nbsp;月&nbsp;{{ date.substring(6, 8) }}&nbsp;日&nbsp;
-									<span>{{ week }}</span>
-								</div>
-								<div class="draw">
-									<FlipClock></FlipClock>
-								</div>
-								<div class="weather">
-									<a  href="javascript:void(0)" @click="openSearchReg">{{ region }}</a>
-									&nbsp;&nbsp;
-									&nbsp;
-									<span>{{ weather.temp || '--' }}°C</span>
-									&nbsp;&nbsp;
-									<span>{{ weather.text || '--' }}</span>
-									&nbsp;&nbsp;
-									<span>{{ weather.windDir || '--' }}</span>
+								<div class="hitokoto-from">-「&nbsp;<span id="from_text">{{ hitokoto.from }}</span>&nbsp;」
 								</div>
 							</div>
 						</div>
-					</Transition>
-					<Transition appear name="fade-right">
-						<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
-							我的音乐
-						</div>
-					</Transition>
-					<Transition appear name="fade-right">
-						<div class="music-all">
-							<div class="player-box" id="player">
+						<div class="cards time anm3" v-loading="timeLoading" element-loading-background="rgba(0, 0, 0, 0.25)">
+							<div class="top">
+								{{ date.substring(0, 4) }}&nbsp;年&nbsp;{{
+									date.substring(4, 6)
+								}}&nbsp;月&nbsp;{{ date.substring(6, 8) }}&nbsp;日&nbsp;
+								<span>{{ week }}</span>
+							</div>
+							<div class="draw">
+								<FlipClock></FlipClock>
+							</div>
+							<div class="weather">
+								<a  href="javascript:void(0)" @click="openSearchReg">{{ region }}</a>
+								&nbsp;&nbsp;
+								&nbsp;
+								<span>{{ weather.temp || '--' }}°C</span>
+								&nbsp;&nbsp;
+								<span>{{ weather.text || '--' }}</span>
+								&nbsp;&nbsp;
+								<span>{{ weather.windDir || '--' }}</span>
 							</div>
 						</div>
-					</Transition>
+					</div>
+					<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
+						我的音乐
+					</div>
+					<div class="music-all anm7">
+						<div class="player-box" id="player">
+						</div>
+					</div>
 					
 				</div>
 				
@@ -105,7 +94,7 @@
 			</div>
 		</div>
 		
-		<div class="footer">
+		<div class="footer anm8">
 			<div id="lrc">
 				<span class="lrc-show">
 					<svg
@@ -147,13 +136,14 @@ import SvgIcon from '@/components/SvgIcon/index.vue'
 import Accordion from './Accordion.vue'
 import background5 from '@/assets/image/background5.webp'
 import APlayer from 'aplayer';
-import { ref, reactive, unref, nextTick, onBeforeUnmount } from "vue";
+import { ref, reactive, unref, nextTick, onMounted, onBeforeUnmount } from "vue";
 import { parseTime } from '@/utils'
 import { getWeather, getMusicList, getHitokoto, getRandomCat } from '@/api/index'
 import { ElMessage } from 'element-plus'
 import musicList  from '@/assets/json/musicList.json'
 import { useRouter } from "vue-router";
 import { GlobalStore } from "@/stores";
+import { gsap } from 'gsap';
 const router = useRouter()
 const iconStyle = ref<any>({
 	fill: '#fff',
@@ -366,6 +356,36 @@ nextTick(() => {
 	})
 })
 
+onMounted(() => {
+	const tl = gsap.timeline();
+	const animation = {
+		y: -500,
+		direction: 1,
+		ease: 'bounce',
+		opacity: 0,
+		onComplete: function() {
+			
+		}
+	}
+	tl.from('.anm1', animation)
+	.from('.anm2', animation, "-=0.15")
+	.from('.anm3', animation, "-=0.15")
+	.from('.anm4', animation, "-=0.15")
+	.from('.anm5', {
+		y: -500,
+		direction: 1,
+		ease: 'bounce',
+		opacity: 0,
+		onComplete: function() {
+			let dom = document.querySelector('.anm5') as HTMLElement;
+			dom.style.transform = 'none';
+		}
+	}, "-=0.15")
+	.from('.anm6', animation, "-=0.15")
+	.from('.anm7', animation, "-=0.15")
+	.from('.anm8', animation, "-=0.15")
+	
+})
 // 离开之前清楚定时器
 onBeforeUnmount(() => {
 	if(time.value !== null) {
@@ -662,18 +682,18 @@ onBeforeUnmount(() => {
 }
 .cards {
 	box-sizing: border-box;
-  transition: transform 0.5s;
-  backdrop-filter: blur(10px);
-  &:hover {
-    transform: scale(1.01);
-		backdrop-filter: blur(0px);
-    transition: transform 0.5s;
-  }
-  &:active {
-    transform: scale(0.95);
-		backdrop-filter: blur(0px);
-    transition: transform 0.5s;
-  }
+	// transition: transform 0.5s;
+	backdrop-filter: blur(10px);
+	// &:hover {
+	// 	transform: scale(1.01);
+	// 	backdrop-filter: blur(0px);
+	// 	transition: transform 0.5s;
+	// }
+	// &:active {
+	// 	transform: scale(0.95);
+	// 		backdrop-filter: blur(0px);
+	// 	transition: transform 0.5s;
+	// }
 }
 :deep(.el-message--info) {
 	--el-message-bg-color: rgb(0 0 0 / 40%) !important;
