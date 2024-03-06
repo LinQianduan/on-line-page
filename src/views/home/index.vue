@@ -360,17 +360,18 @@ onMounted(() => {
 	const tl = gsap.timeline();
 	const animation = {
 		y: -500,
-		direction: 1,
+		duration: 1.5,
 		ease: 'bounce',
 		opacity: 0,
 		onComplete: function() {
 			
 		}
 	}
+	const time = '-=1.2'
 	tl.from('.anm1', animation)
-	.from('.anm2', animation, "-=0.15")
-	.from('.anm3', animation, "-=0.15")
-	.from('.anm4', animation, "-=0.15")
+	.from('.anm2', animation, time)
+	.from('.anm3', animation, time)
+	.from('.anm4', animation, time)
 	.from('.anm5', {
 		y: -500,
 		direction: 1,
@@ -380,10 +381,10 @@ onMounted(() => {
 			let dom = document.querySelector('.anm5') as HTMLElement;
 			dom.style.transform = 'none';
 		}
-	}, "-=0.15")
-	.from('.anm6', animation, "-=0.15")
-	.from('.anm7', animation, "-=0.15")
-	.from('.anm8', animation, "-=0.15")
+	}, time)
+	.from('.anm6', animation, time)
+	.from('.anm7', animation, time)
+	.from('.anm8', animation, time)
 	
 })
 // 离开之前清楚定时器

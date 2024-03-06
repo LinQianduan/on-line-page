@@ -1,5 +1,5 @@
 <template>
-	<div class="link-container">
+	<div class="link-container" ref="sideBarRef">
 		<div class="sidebar-logo">
 			<img src="@/assets/img/2.jpg" alt="">
 		</div>
@@ -31,13 +31,24 @@
 </template>
 <script setup lang='ts'>
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useI18n } from "vue-i18n";
+import { gsap } from 'gsap';
 
 const i18n = useI18n();
 const handleCommand = (lang: string) => {
 	i18n.locale.value = lang;
 }
+const sideBarRef = ref(null)
+onMounted(() => {
+	gsap.from(sideBarRef.value, {
+      duration: 2,
+      opacity: 0.1,
+      y: 100,
+      scale: 0.3,
+      ease: "elastic.out(1, 0.85)" // 使用弹簧缓动效果
+    });
+})
 </script>
 <style scoped lang='scss'>
 .link-container {

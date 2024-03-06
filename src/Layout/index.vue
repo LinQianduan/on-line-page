@@ -13,33 +13,46 @@
 			<Sidebar class="sidebar" />
 		</div>
 		<AppMain />
-    <Dia />
+    <Dia ref="diaRef" v-if="showDia" />
 	</div>
 </template>
 <script setup lang='ts'>
 import AppMain from './AppMain.vue'
 import Sidebar from './Sidebar.vue'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, nextTick } from 'vue'
 import Dia from '@/components/Dia.vue'
 import background5 from '@/assets/image/background5.webp'
 import { GlobalStore } from '@/stores'
-import { gsap } from 'gsap';
+import { gsap, TimelineMax } from 'gsap';
 const store = GlobalStore()
 const colLeftRef = ref(null);
 const colRightRef = ref(null);
+const diaRef = ref(null);
+const showDia = ref(true);
 onMounted(() => {
-  gsap.to(colLeftRef.value, {
+  const animation1 = gsap.to(colLeftRef.value, {
     left: "-100%",
     duration: 1.5,
     display: "none",
     ease: 'power1.inOut'
   })
-  gsap.to(colRightRef.value, {
+  const animation2 = gsap.to(colRightRef.value, {
     right: "-100%",
     duration: 1.5,
     display: "none",
     ease: 'power1.inOut'
   })
+  const tl = new TimelineMax();
+  tl.add(animation1, 0);
+  tl.add(animation2, 0);
+  tl.from(diaRef.value.$el, {
+    duration: 1,
+    opacity: 0.1,
+    y: -200,
+    scale: 0.3,
+    ease: "elastic.out(1, 0.85)" // 使用弹簧缓动效果
+  });
+
 })
 </script>
 <style scoped lang='scss'>
