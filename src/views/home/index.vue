@@ -80,7 +80,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="line" style="margin-top: 38px; margin-bottom: 10px;">
+					<div class="line anm7" style="margin-top: 38px; margin-bottom: 10px;">
 						我的音乐
 					</div>
 					<div class="music-all anm7">

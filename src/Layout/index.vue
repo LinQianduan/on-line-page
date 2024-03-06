@@ -13,12 +13,14 @@
 			<Sidebar class="sidebar" />
 		</div>
 		<AppMain />
+    <Dia />
 	</div>
 </template>
 <script setup lang='ts'>
 import AppMain from './AppMain.vue'
 import Sidebar from './Sidebar.vue'
 import { ref, reactive, onMounted } from 'vue'
+import Dia from '@/components/Dia.vue'
 import background5 from '@/assets/image/background5.webp'
 import { GlobalStore } from '@/stores'
 import { gsap } from 'gsap';
