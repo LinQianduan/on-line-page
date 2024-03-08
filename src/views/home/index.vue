@@ -404,7 +404,7 @@ onBeforeUnmount(() => {
 	box-sizing: border-box;
 	position: relative;
 	// min-height: 600px;
-  width: 100%;
+  	width: 100%;
 	min-height: 100%;
 	overflow: hidden;
 }
