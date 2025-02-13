@@ -51,9 +51,9 @@ export const staticRouter: RouteRecordRaw[] = [
 		meta: { title: 'Test' }
 	},
 	{
-		path: '/3dModel',
-		component: () => import("@/views/3dModel/index.vue"),
-		meta: { title: 'model' }
+		path: '/threeScreen',
+		component: () => import("@/views/threeScreen/index.vue"),
+		meta: { title: 'threeScreen' }
 	},
 	{
 		path: '/login',
