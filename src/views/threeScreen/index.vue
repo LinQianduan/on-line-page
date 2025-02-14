@@ -1,10 +1,16 @@
 <template>
   <div class="model-container" ref="modelContainerDom">
+    <div class="btn-top">
+      <el-button type="primary" size="mini" @click="loadModel"
+        >加载模型</el-button
+      >
+    </div>
     <div class="three-parent" ref="containerDom"></div>
   </div>
 </template>
 
 <script setup lang="ts">
+import axios from "axios";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
@@ -13,6 +19,7 @@ import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass";
 // @ts-ignore
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass";
 import { SMAAPass } from "three/examples/jsm/postprocessing/SMAAPass";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import { onMounted, ref, reactive, toRefs } from "vue";
 type State = {
@@ -26,7 +33,7 @@ type State = {
   outlinePass: OutlinePass | null;
   composer: EffectComposer | null;
 };
-const state = reactive<State>({
+const state: State = {
   renderer: null,
   canvasDom: null,
   scene: null,
@@ -36,15 +43,15 @@ const state = reactive<State>({
   mainGroup: null,
   outlinePass: null,
   composer: null,
-});
+};
 let mouse = new THREE.Vector2();
 let raycaster = new THREE.Raycaster();
-// 使用 toRefs 来保持响应性
-const { renderer, canvasDom, scene, camera, controls, light } = toRefs(state);
 const containerDom = ref<HTMLDivElement | null>(null); // 容器
-onMounted(() => {
+onMounted(async () => {
   initRenderer();
+  await loadCar();
 });
+// 初始化
 function initRenderer() {
   const dom = containerDom.value as HTMLDivElement;
 
@@ -133,7 +140,7 @@ function resize(renderer: THREE.WebGLRenderer) {
     state.canvasDom!.width !== width || state.canvasDom!.height !== height;
   if (needResize) {
     renderer.setSize(width, height, true); // 更新渲染器的大小
-    state.composer!.setSize(width, height); // 更新 composer 的大小
+    state.composer?.setSize(width, height); // 更新 composer 的大小
   }
   return needResize;
 }
@@ -144,14 +151,121 @@ function render() {
     const clientHeight = containerDom.value!.clientHeight;
     const aspect = clientWidth / clientHeight;
     state.camera!.aspect = aspect;
-    state.camera!.updateProjectionMatrix();
-    requestAnimationFrame(render);
-    state.controls!.update();
-    state.composer!.render();
-    // 将方向光的位置设置为相机的位置
-    // state.light!.position.copy(state.camera!.position);
-    // state.light!.updateMatrixWorld(true);
+    state.camera?.updateProjectionMatrix();
   }
+  requestAnimationFrame(render);
+  state.controls?.update();
+  state.composer?.render();
+}
+function loadModel() {
+  // 动态创建 input 元素
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".glb"; // 限制文件类型为 .js
+  fileInput.style.display = "none"; // 隐藏 input 元素
+  // 监听文件选择事件
+  fileInput.addEventListener("change", function (event: any) {
+    const file = event.target.files[0]; // 获取用户选择的文件
+    console.log(file, "file");
+
+    const reader = new FileReader(); // 创建 FileReader 对象
+
+    // 文件读取成功时的回调
+    reader.onload = function (e: any) {
+      const data = reader.result as unknown as string | ArrayBuffer;
+      const loader = new GLTFLoader();
+      loader.parse(
+        data,
+        "",
+        (gltf) => {
+          const object = gltf.scene;
+          // 计算包围盒
+          const box = new THREE.Box3().setFromObject(object);
+          const size = new THREE.Vector3();
+          box.getSize(size); // 获取包围盒尺寸
+          // 找出 X 和 Z 轴的最大尺寸
+          const maxDimension = Math.max(size.x, size.z);
+          // 计算缩放比例，使最大尺寸为 10 米
+          const scale = 10 / maxDimension;
+          object.scale.set(scale, scale, scale);
+          object.position.set(0, 0, 0);
+          // 设置模型位置为原点
+          box.getCenter(object.position).multiplyScalar(-1);
+          state.mainGroup?.add(object);
+          state.controls?.update();
+        },
+        (error) => {
+          console.error("GLB模型加载错误:", error);
+        }
+      );
+    };
+
+    // 文件读取失败时的回调
+    reader.onerror = function () {};
+
+    reader.readAsArrayBuffer(file); // 以 ArrayBuffer 的形式读取文件
+  });
+  // 触发文件选择对话框
+  document.body.appendChild(fileInput); // 将 input 添加到文档中
+  fileInput.click(); // 模拟点击
+  document.body.removeChild(fileInput); // 移除 input 元素
+}
+async function loadCar() {
+  const object = (await getRemoteModel("/model/car.glb")) as any;
+  // 计算包围盒
+  const box = new THREE.Box3().setFromObject(object);
+  const size = new THREE.Vector3();
+  box.getSize(size); // 获取包围盒尺寸
+  // 找出 X 和 Z 轴的最大尺寸
+  const maxDimension = Math.max(size.x, size.z);
+  // 计算缩放比例，使最大尺寸为 10 米
+  const scale = 10 / maxDimension;
+  object.scale.set(scale, scale, scale);
+  object.position.set(0, 0, 0);
+  // 设置模型位置为原点
+  box.getCenter(object.position).multiplyScalar(-1);
+  state.mainGroup?.add(object);
+  state.controls?.update();
+}
+// 加载模型
+function getRemoteModel(path: string, isLocal: boolean = false) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(path, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        let reader = new FileReader();
+
+        reader.onload = () => {
+          const data = reader.result as unknown as ArrayBuffer | string;
+          const loader = new GLTFLoader();
+          const geometry = loader.parse(
+            data,
+            "",
+            (gltf) => {
+              const object = gltf.scene;
+              resolve(object);
+            },
+            (error) => {
+              reject(new Error("加载模型错误"));
+            }
+          );
+        };
+
+        reader.onerror = () => {
+          // 如果 FileReader 发生错误，拒绝 Promise
+          reject(new Error("加载模型错误"));
+        };
+
+        // 开始读取文件
+        reader.readAsArrayBuffer(res.data);
+      })
+      .catch((err) => {
+        // 如果 HTTP 请求失败，拒绝 Promise
+        reject(err);
+      });
+  });
 }
 </script>
 
@@ -160,6 +274,13 @@ function render() {
   width: 100%;
   height: 100%;
   position: relative;
+  background-color: #000;
+  .btn-top {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 999;
+  }
   .three-parent {
     position: absolute;
     left: 0;

@@ -11,33 +11,33 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }: ConfigEnv): UserConfig =>{
+export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, process.cwd());
   const viteEnv = wrapperEnv(env);
 
   return {
     base: "./",
     resolve: {
-			alias: {
-				"@": resolve(__dirname, "./src"),
-			},
+      alias: {
+        "@": resolve(__dirname, "./src"),
+      },
       extensions: [".js", ".ts", ".tsx", ".jsx"]
-		},
+    },
     server: {
       host: "0.0.0.0",
-			port: viteEnv.VITE_PORT,
-			open: viteEnv.VITE_OPEN,
+      port: viteEnv.VITE_PORT,
+      open: viteEnv.VITE_OPEN,
       cors: true,
-			// 跨域代理配置
-			proxy: {
-				"/api": {
+      // 跨域代理配置
+      proxy: {
+        "/api": {
           target: "http://localhost:3000",
-					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, "")
-				}
-			}
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, "")
+        }
+      }
     },
-    css:{
+    css: {
       preprocessorOptions: {
         scss: {
           additionalData: `@import "@/styles/var.scss";`
@@ -47,21 +47,21 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig =>{
     plugins: [
       vue(),
       createHtmlPlugin({
-				inject: {
-					data: {
-						title: viteEnv.VITE_GLOB_APP_TITLE
-					}
-				}
-			}),
+        inject: {
+          data: {
+            title: viteEnv.VITE_GLOB_APP_TITLE
+          }
+        }
+      }),
       // * 使用 svg 图标
-			createSvgIconsPlugin({
-				iconDirs: [resolve(process.cwd(), "src/assets/svg")],
-				symbolId: "icon-[dir]-[name]"
-			}),
+      createSvgIconsPlugin({
+        iconDirs: [resolve(process.cwd(), "src/assets/svg")],
+        symbolId: "icon-[dir]-[name]"
+      }),
       // * name 可以写在 script 标签上
-			VueSetupExtend(),
+      VueSetupExtend(),
       // * vite 可以使用 jsx/tsx 语法
-			vueJsx(),
+      vueJsx(),
       // ----element plus自动按需导入----
       // AutoImport({
       //   resolvers: [ElementPlusResolver()],
@@ -77,7 +77,10 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig =>{
     ],
     // * 打包去除 console.log && debugger
     esbuild: {
-			pure: viteEnv.VITE_DROP_CONSOLE ? ["console.log", "debugger"] : []
-		},
+      pure: viteEnv.VITE_DROP_CONSOLE ? ["console.log", "debugger"] : []
+    },
+    build: {
+      sourcemap: true, // 启用 sourcemap
+    }
   }
 })
