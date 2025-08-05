@@ -1,10 +1,11 @@
 <template>
 	<div class="navigation">
 		<!-- <el-button size="default" @click="handleClick">打开</el-button> -->
-		<div class="card">
+		<!-- <div class="card">
 			<ListPublishing></ListPublishing>
-		</div>
+		</div> -->
 		<!-- <DialogUserSelect ref="dialogUserSelectRef"></DialogUserSelect> -->
+		正在开发中。。。
 	</div>
 </template>
 <script setup lang='ts'>
